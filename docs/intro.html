@@ -23,7 +23,7 @@
 <meta name="author" content="Yihui Xie" />
 
 
-<meta name="date" content="2026-07-30" />
+<meta name="date" content="2026-08-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -142,7 +142,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Contexto del problema</a></li>
-<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> EDA</a></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> EDA</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#an%C3%A1lisis-exploratorio-de-median_house_value-target"><i class="fa fa-check"></i><b>1.1</b> Análisis exploratorio de <code>median_house_value</code> (Target)</a></li>
+</ul></li>
 <li class="chapter" data-level="2" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>2</b> Literature</a></li>
 <li class="chapter" data-level="3" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>3</b> Methods</a>
 <ul>
@@ -179,7 +182,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 1</span> EDA<a href="intro.html#intro" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Carguemos las librerias</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="intro.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="intro.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(Amelia)</span></code></pre></div>
+<span id="cb1-2"><a href="intro.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(Amelia)</span>
+<span id="cb1-3"><a href="intro.html#cb1-3" tabindex="-1"></a><span class="fu">library</span>(moments)</span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="intro.html#cb2-1" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;/cloud/project/data/housing.csv&quot;</span>)</span></code></pre></div>
 <p>Muestrame las 5 primers filas</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="intro.html#cb3-1" tabindex="-1"></a><span class="fu">head</span>(data, <span class="at">n=</span><span class="dv">5</span>)</span></code></pre></div>
@@ -237,7 +241,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 1                     0                  0</code></pre>
 <p>Vamos a convertir la variable ocean_proximity en un factor</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="intro.html#cb13-1" tabindex="-1"></a>df<span class="sc">$</span>ocean_proximity <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>ocean_proximity)</span></code></pre></div>
+<div id="análisis-exploratorio-de-median_house_value-target" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Análisis exploratorio de <code>median_house_value</code> (Target)<a href="intro.html#an%C3%A1lisis-exploratorio-de-median_house_value-target" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Realicemos el resumen estadístico de la variable</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="intro.html#cb14-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">length</span>(median_house_value),</span>
+<span id="cb14-2"><a href="intro.html#cb14-2" tabindex="-1"></a>                 <span class="at">media =</span> <span class="fu">mean</span>(median_house_value),</span>
+<span id="cb14-3"><a href="intro.html#cb14-3" tabindex="-1"></a>                 <span class="at">sd =</span> <span class="fu">sd</span>(median_house_value),</span>
+<span id="cb14-4"><a href="intro.html#cb14-4" tabindex="-1"></a>                 <span class="at">mediana =</span> <span class="fu">median</span>(median_house_value),</span>
+<span id="cb14-5"><a href="intro.html#cb14-5" tabindex="-1"></a>                 <span class="at">RIC =</span> <span class="fu">IQR</span>(median_house_value),</span>
+<span id="cb14-6"><a href="intro.html#cb14-6" tabindex="-1"></a>                 <span class="at">Q1 =</span> <span class="fu">quantile</span>(median_house_value,<span class="fl">0.25</span>),</span>
+<span id="cb14-7"><a href="intro.html#cb14-7" tabindex="-1"></a>                 <span class="at">Q3 =</span> <span class="fu">quantile</span>(median_house_value,<span class="fl">0.75</span>),</span>
+<span id="cb14-8"><a href="intro.html#cb14-8" tabindex="-1"></a>                 <span class="at">minimo =</span> <span class="fu">min</span>(median_house_value),</span>
+<span id="cb14-9"><a href="intro.html#cb14-9" tabindex="-1"></a>                 <span class="at">maximo =</span> <span class="fu">max</span>(median_house_value),</span>
+<span id="cb14-10"><a href="intro.html#cb14-10" tabindex="-1"></a>                 <span class="at">asi =</span> <span class="fu">skewness</span>(median_house_value),</span>
+<span id="cb14-11"><a href="intro.html#cb14-11" tabindex="-1"></a>                 <span class="at">curtosis =</span> <span class="fu">kurtosis</span>(median_house_value)</span>
+<span id="cb14-12"><a href="intro.html#cb14-12" tabindex="-1"></a>                 )</span></code></pre></div>
+<pre><code>##       n    media       sd mediana    RIC     Q1     Q3 minimo maximo       asi
+## 1 20640 206855.8 115395.6  179700 145125 119600 264725  14999 500001 0.9776922
+##   curtosis
+## 1   3.3275</code></pre>
+<ul>
+<li><code>n</code>: hay 20.640 casas</li>
+<li><code>media</code>: en promedio, cada casa tiene un precio de 206.855 dólares americanos</li>
+<li><code>mediana</code>: el 50% de las casas tienen precio menor o igual a 179.700 dólares americanos</li>
+<li><code>RIC</code></li>
+<li><code>Q1</code>: el 25% de las casas tienen un precio menor o igual a 119.600 dólares americanos</li>
+<li><code>Q3</code>: el 75% de las casas tienen un precio menor o igual a 264.725 dólares americanos</li>
+<li><code>minimo</code>: la casa de menor precio cuesta 14.999 dólares americanos</li>
+<li><code>maximo</code>: la casa más cara tiene un valor de 50.001 dólares americanos</li>
+<li><code>asi</code>:</li>
+<li><code>curtosis</code>:</li>
+</ul>
 
+</div>
 </div>
             </section>
 

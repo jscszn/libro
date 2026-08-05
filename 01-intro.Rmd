@@ -4,6 +4,8 @@ Carguemos las librerias
 ```{r libreria, message=FALSE,warning=FALSE}
 library(tidyverse)
 library(Amelia)
+library(moments)
+library(patchwork)
 ```
 
 
@@ -59,4 +61,114 @@ Vamos a convertir la variable ocean_proximity en un factor
 df$ocean_proximity <- factor(df$ocean_proximity)
 ```
 
+## Análisis exploratorio de `median_house_value` (Target)
 
+Realicemos el resumen estadístico de la variable
+```{r median_house}
+df %>% summarise(n = length(median_house_value),
+                 media = mean(median_house_value),
+                 sd = sd(median_house_value),
+                 mediana = median(median_house_value),
+                 RIC = IQR(median_house_value),
+                 Q1 = quantile(median_house_value,0.25),
+                 Q3 = quantile(median_house_value,0.75),
+                 minimo = min(median_house_value),
+                 maximo = max(median_house_value),
+                 asi = skewness(median_house_value),
+                 curtosis = kurtosis(median_house_value)
+                 )
+```
+
+- `n`: hay 20.640 casas
+- `media`: en promedio, cada casa tiene un precio de 206.855 dólares americanos
+- `mediana`: el 50% de las casas tienen precio menor o igual a 179.700 dólares americanos
+- `RIC`
+- `Q1`: el 25% de las casas tienen un precio menor o igual a 119.600 dólares americanos
+- `Q3`: el 75% de las casas tienen un precio menor o igual a 264.725 dólares americanos
+- `minimo`: la casa de menor precio cuesta 14.999 dólares americanos
+- `maximo`: la casa más cara tiene un valor de 50.001 dólares americanos
+- `asi`: 
+- `curtosis`: 
+
+```{r histhousevalue}
+df %>%
+  ggplot(aes(x = median_house_value))+
+  geom_histogram(aes(y = after_stat(density)),
+                     binwidth = 25000,
+                      fill = "#ffc70f",
+                      color = "white",
+                      alpha = 0.6)+
+  geom_density(color = "darkblue", linewidth =1.2) +
+  labs(title = 'Distribución del valor medio de las viviendas',
+       x = 'valor medio de la casa (USD)',
+       y = 'densidad')+
+  theme_bw()
+```
+
+
+```{r boxplotvaluehouse}
+df %>%
+  ggplot(aes(y = "", x= median_house_value))+
+  geom_boxplot(fill = "#9a37cc", color = "#5c1427",
+               outlier.color = 'darkred')+
+  stat_summary(fun = mean, geom = 'point', shape = 20,
+               size = 3, color = 'yellow') + 
+  theme_bw()
+```
+
+
+## Análisis de las variables independientes (características)
+
+```{r}
+df %>%
+  select(where(is.numeric), -median_house_value) %>%
+  pivot_longer(
+    cols = everything(),
+    names_to = 'variable',
+    values_to = 'valor'
+  ) %>%
+  group_by(variable) %>% 
+  summarise(n = length(valor),
+                 media = mean(valor),
+                 sd = sd(valor),
+                 mediana = median(valor),
+                 RIC = IQR(valor),
+                 Q1 = quantile(valor,0.25),
+                 Q3 = quantile(valor,0.75),
+                 minimo = min(valor),
+                 maximo = max(valor),
+                 asi = skewness(valor),
+                 curtosis = kurtosis(valor)
+                 )
+```
+
+El resumen estadístico de las 8 variables numéricas revela comportamientos muy distintos entre ellas. households y population presentan medias considerablemente superiores a sus medianas (499 vs 409 y 1425 vs 1166, respectivamente), junto con RIC elevados, lo que evidencia asimetría positiva y alta dispersión. total_rooms y total_bedrooms siguen el mismo patrón, con medias muy por encima de la mediana y desviaciones estándar enormes, confirmando lo observado en los boxplots. median_income muestra una distribución más equilibrada (media 3.87, mediana 3.53) con menor dispersión relativa, siendo la variable más homogénea del conjunto. housing_median_age es la más simétrica de todas, con media y mediana muy cercanas (~28.6 y 29) y el RIC más bajo. Finalmente, latitude y longitude corresponden a coordenadas geográficas, por lo que sus estadísticos describen la distribución espacial de los bloques censales en California, con poca variabilidad dado que el estado ocupa un rango geográfico acotado.
+
+
+```{r grafindep}
+df %>%
+  ggplot(aes(x = "", y= housing_median_age))+
+  geom_boxplot(fill = "#9a37cc", color = "#5c1427",
+               outlier.color = 'darkred')+
+  stat_summary(fun = mean, geom = 'point', shape = 20,
+               size = 3, color = 'yellow') + 
+  theme_bw() -> p1
+df %>%
+  ggplot(aes(x = "", y= total_rooms))+
+  geom_boxplot(fill = "#9a37cc", color = "#5c1427",
+               outlier.color = 'darkred')+
+  stat_summary(fun = mean, geom = 'point', shape = 20,
+               size = 3, color = 'yellow') + 
+  theme_bw() -> p2
+df %>%
+  ggplot(aes(x = "", y= total_bedrooms))+
+  geom_boxplot(fill = "#9a37cc", color = "#5c1427",
+               outlier.color = 'darkred')+
+  stat_summary(fun = mean, geom = 'point', shape = 20,
+               size = 3, color = 'yellow') + 
+  theme_bw() -> p3
+
+p1 + p2 + p3
+```
+
+housing_median_age presenta una distribución simétrica con mediana aproximada de 29 años y pocos valores atípicos, siendo la variable más estable de las tres. Por su parte, total_rooms y total_bedrooms muestran una marcada asimetría positiva: la caja está muy comprimida hacia valores bajos y existe una gran cantidad de outliers en la parte superior, lo que indica que la mayoría de los bloques tienen pocas habitaciones pero algunos presentan valores extremadamente altos. Dado este comportamiento, se recomienda aplicar una transformación logarítmica a estas dos variables antes de incluirlas en modelos estadísticos.
