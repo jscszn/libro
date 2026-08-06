@@ -1,6 +1,7 @@
-book_filename: "bookdown-demo"
+book_filename: "notasmetodos"
+rmd_files: ["index.Rmd", "01-intro.Rmd", "06-references.Rmd"]
 language:
   ui:
-    chapter_name: "Chapter "
+    chapter_name: "Capítulo "
 delete_merged_file: true
 output_dir: "docs"

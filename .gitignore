@@ -1,14 +1,10 @@
 .Rproj.user
 .Rhistory
 .RData
+.Ruserdata
+.DS_Store
 _book
 _bookdown_files
+# figuras intermedias de la raíz (las de docs/ sí se publican)
+/notasmetodos_files
 rsconnect
-placeholder.Rcheck/
-placeholder*.tar.gz
-placeholder*.tgz
-placeholder.Rcheck/
-placeholder.Rcheck/
-placeholder.Rcheck/
-placeholder.Rcheck/
-placeholder.Rcheck/
