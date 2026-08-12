@@ -1,6 +1,8 @@
 ---
 title: "Librito de estadística"
-author: "jscszn"
+author:
+  - Jose Castro Zúñiga
+  - Jimara Urzola
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
