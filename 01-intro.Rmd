@@ -1,5 +1,8 @@
 # EDA {#intro}
 
+
+Antes de comenzar recordemos el propósito del EDA. El análisis exploratorio de datos consiste en examinar un conjunto de datos mediante visualizaciones, resumenes y gráficas, fundamentalmente. Esto con el propósito de conocer más a detalle los datos con los que se trabaja, ya que podemos detectar patrones, identificar anomalías y formular hipótesis. Como se mencionó en la introducción de este proyecto, aplicaremos esta técnica a la base de datos en general, y haremos énfasis cuando analicemos una variable en particular, o varias a la vez.
+
 Carguemos las librerias
 ```{r libreria, message=FALSE,warning=FALSE}
 library(tidyverse)
@@ -9,6 +12,7 @@ library(patchwork)
 library(GGally)
 ```
 
+## ETL (Extracción, transformación y carga)
 
 ```{r data}
 data <- read.csv("data/housing.csv")
