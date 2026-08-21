@@ -24,7 +24,7 @@
 <meta name="author" content="Jimara Urzola" />
 
 
-<meta name="date" content="2026-08-19" />
+<meta name="date" content="2026-08-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -145,17 +145,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Contexto del problema</a></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> EDA</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#an%C3%A1lisis-exploratorio-de-median_house_value-target"><i class="fa fa-check"></i><b>1.1</b> Análisis exploratorio de <code>median_house_value</code> (Target)</a></li>
-<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#an%C3%A1lisis-de-las-variables-independientes-caracter%C3%ADsticas"><i class="fa fa-check"></i><b>1.2</b> Análisis de las variables independientes (características)</a></li>
-<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#an%C3%A1lisis-exploratorio-bivariado"><i class="fa fa-check"></i><b>1.3</b> Análisis exploratorio bivariado</a>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#etl-extracci%C3%B3n-transformaci%C3%B3n-y-carga"><i class="fa fa-check"></i><b>1.1</b> ETL (Extracción, transformación y carga)</a></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#an%C3%A1lisis-exploratorio-de-median_house_value-target"><i class="fa fa-check"></i><b>1.2</b> Análisis exploratorio de <code>median_house_value</code> (Target)</a></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#an%C3%A1lisis-de-las-variables-independientes-caracter%C3%ADsticas"><i class="fa fa-check"></i><b>1.3</b> Análisis de las variables independientes (características)</a></li>
+<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#an%C3%A1lisis-exploratorio-bivariado"><i class="fa fa-check"></i><b>1.4</b> Análisis exploratorio bivariado</a>
 <ul>
-<li class="chapter" data-level="1.3.1" data-path="intro.html"><a href="intro.html#relaciones-entre-las-propias-variables-independientes"><i class="fa fa-check"></i><b>1.3.1</b> Relaciones entre las propias variables independientes</a></li>
+<li class="chapter" data-level="1.4.1" data-path="intro.html"><a href="intro.html#relaciones-entre-las-propias-variables-independientes"><i class="fa fa-check"></i><b>1.4.1</b> Relaciones entre las propias variables independientes</a></li>
 </ul></li>
-<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#paquete-ggally"><i class="fa fa-check"></i><b>1.4</b> Paquete GGally</a></li>
-<li class="chapter" data-level="1.5" data-path="intro.html"><a href="intro.html#correlaci%C3%B3n"><i class="fa fa-check"></i><b>1.5</b> Correlación</a></li>
-<li class="chapter" data-level="1.6" data-path="intro.html"><a href="intro.html#ingenier%C3%ADa-de-caracter%C3%ADsticas"><i class="fa fa-check"></i><b>1.6</b> Ingeniería de características</a>
+<li class="chapter" data-level="1.5" data-path="intro.html"><a href="intro.html#paquete-ggally"><i class="fa fa-check"></i><b>1.5</b> Paquete GGally</a></li>
+<li class="chapter" data-level="1.6" data-path="intro.html"><a href="intro.html#correlaci%C3%B3n"><i class="fa fa-check"></i><b>1.6</b> Correlación</a></li>
+<li class="chapter" data-level="1.7" data-path="intro.html"><a href="intro.html#ingenier%C3%ADa-de-caracter%C3%ADsticas"><i class="fa fa-check"></i><b>1.7</b> Ingeniería de características</a>
 <ul>
-<li class="chapter" data-level="1.6.1" data-path="intro.html"><a href="intro.html#sirven-las-nuevas-variables"><i class="fa fa-check"></i><b>1.6.1</b> ¿Sirven las nuevas variables?</a></li>
+<li class="chapter" data-level="1.7.1" data-path="intro.html"><a href="intro.html#sirven-las-nuevas-variables"><i class="fa fa-check"></i><b>1.7.1</b> ¿Sirven las nuevas variables?</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
@@ -181,27 +182,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="intro" class="section level1 hasAnchor" number="1">
 <h1><span class="header-section-number">Capítulo 1</span> EDA<a href="intro.html#intro" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Antes de comenzar recordemos el propósito del EDA. El análisis exploratorio de datos consiste en examinar un conjunto de datos mediante visualizaciones, resumenes y gráficas, fundamentalmente. Esto con el propósito de conocer más a detalle los datos con los que se trabaja, ya que podemos detectar patrones, identificar anomalías y formular hipótesis. Como se mencionó en la introducción de este proyecto, aplicaremos esta técnica a la base de datos en general, y haremos énfasis cuando analicemos una variable en particular, o varias a la vez.</p>
 <p>Carguemos las librerias</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="intro.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="intro.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(Amelia)</span>
 <span id="cb1-3"><a href="intro.html#cb1-3" tabindex="-1"></a><span class="fu">library</span>(moments)</span>
 <span id="cb1-4"><a href="intro.html#cb1-4" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
 <span id="cb1-5"><a href="intro.html#cb1-5" tabindex="-1"></a><span class="fu">library</span>(GGally)</span></code></pre></div>
+<div id="etl-extracción-transformación-y-carga" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> ETL (Extracción, transformación y carga)<a href="intro.html#etl-extracci%C3%B3n-transformaci%C3%B3n-y-carga" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="intro.html#cb2-1" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/housing.csv&quot;</span>)</span></code></pre></div>
 <p>Muestrame las 5 primeras filas</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="intro.html#cb3-1" tabindex="-1"></a><span class="fu">head</span>(data, <span class="at">n=</span><span class="dv">5</span>)</span></code></pre></div>
-<pre><code>##   longitude latitude housing_median_age total_rooms total_bedrooms population
-## 1   -122.23    37.88                 41         880            129        322
-## 2   -122.22    37.86                 21        7099           1106       2401
-## 3   -122.24    37.85                 52        1467            190        496
-## 4   -122.25    37.85                 52        1274            235        558
-## 5   -122.25    37.85                 52        1627            280        565
-##   households median_income median_house_value ocean_proximity
-## 1        126        8.3252             452600        NEAR BAY
-## 2       1138        8.3014             358500        NEAR BAY
-## 3        177        7.2574             352100        NEAR BAY
-## 4        219        5.6431             341300        NEAR BAY
-## 5        259        3.8462             342200        NEAR BAY</code></pre>
+<pre><code>##   longitude latitude housing_median_age total_rooms total_bedrooms population households median_income median_house_value
+## 1   -122.23    37.88                 41         880            129        322        126        8.3252             452600
+## 2   -122.22    37.86                 21        7099           1106       2401       1138        8.3014             358500
+## 3   -122.24    37.85                 52        1467            190        496        177        7.2574             352100
+## 4   -122.25    37.85                 52        1274            235        558        219        5.6431             341300
+## 5   -122.25    37.85                 52        1627            280        565        259        3.8462             342200
+##   ocean_proximity
+## 1        NEAR BAY
+## 2        NEAR BAY
+## 3        NEAR BAY
+## 4        NEAR BAY
+## 5        NEAR BAY</code></pre>
 <p>La estructura de los datos</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="intro.html#cb5-1" tabindex="-1"></a><span class="fu">str</span>(data)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    20640 obs. of  10 variables:
@@ -218,10 +222,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Veamos si hay datos faltantes</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="intro.html#cb7-1" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
 <span id="cb7-2"><a href="intro.html#cb7-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(.)),<span class="at">.names =</span> <span class="st">&quot;NA_{.col}&quot;</span>))</span></code></pre></div>
-<pre><code>##   NA_longitude NA_latitude NA_housing_median_age NA_total_rooms
-## 1            0           0                     0              0
-##   NA_total_bedrooms NA_population NA_households NA_median_income
-## 1               207             0             0                0
+<pre><code>##   NA_longitude NA_latitude NA_housing_median_age NA_total_rooms NA_total_bedrooms NA_population NA_households NA_median_income
+## 1            0           0                     0              0               207             0             0                0
 ##   NA_median_house_value NA_ocean_proximity
 ## 1                     0                  0</code></pre>
 <p>Otra forma de detectar valores faltantes</p>
@@ -236,16 +238,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Verifiquemos si tiene datos faltantes</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="intro.html#cb11-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
 <span id="cb11-2"><a href="intro.html#cb11-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(.)),<span class="at">.names =</span> <span class="st">&quot;NA_{.col}&quot;</span>))</span></code></pre></div>
-<pre><code>##   NA_longitude NA_latitude NA_housing_median_age NA_total_rooms
-## 1            0           0                     0              0
-##   NA_total_bedrooms NA_population NA_households NA_median_income
-## 1                 0             0             0                0
+<pre><code>##   NA_longitude NA_latitude NA_housing_median_age NA_total_rooms NA_total_bedrooms NA_population NA_households NA_median_income
+## 1            0           0                     0              0                 0             0             0                0
 ##   NA_median_house_value NA_ocean_proximity
 ## 1                     0                  0</code></pre>
 <p>Vamos a convertir la variable ocean_proximity en un factor</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="intro.html#cb13-1" tabindex="-1"></a>df<span class="sc">$</span>ocean_proximity <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>ocean_proximity)</span></code></pre></div>
-<div id="análisis-exploratorio-de-median_house_value-target" class="section level2 hasAnchor" number="1.1">
-<h2><span class="header-section-number">1.1</span> Análisis exploratorio de <code>median_house_value</code> (Target)<a href="intro.html#an%C3%A1lisis-exploratorio-de-median_house_value-target" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="análisis-exploratorio-de-median_house_value-target" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Análisis exploratorio de <code>median_house_value</code> (Target)<a href="intro.html#an%C3%A1lisis-exploratorio-de-median_house_value-target" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Realicemos el resumen estadístico de la variable</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="intro.html#cb14-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">length</span>(median_house_value),</span>
 <span id="cb14-2"><a href="intro.html#cb14-2" tabindex="-1"></a>                 <span class="at">media =</span> <span class="fu">mean</span>(median_house_value),</span>
@@ -259,10 +260,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb14-10"><a href="intro.html#cb14-10" tabindex="-1"></a>                 <span class="at">asi =</span> <span class="fu">skewness</span>(median_house_value),</span>
 <span id="cb14-11"><a href="intro.html#cb14-11" tabindex="-1"></a>                 <span class="at">curtosis =</span> <span class="fu">kurtosis</span>(median_house_value)</span>
 <span id="cb14-12"><a href="intro.html#cb14-12" tabindex="-1"></a>                 )</span></code></pre></div>
-<pre><code>##       n    media       sd mediana    RIC     Q1     Q3 minimo maximo       asi
-## 1 20640 206855.8 115395.6  179700 145125 119600 264725  14999 500001 0.9776922
-##   curtosis
-## 1   3.3275</code></pre>
+<pre><code>##       n    media       sd mediana    RIC     Q1     Q3 minimo maximo       asi curtosis
+## 1 20640 206855.8 115395.6  179700 145125 119600 264725  14999 500001 0.9776922   3.3275</code></pre>
 <ul>
 <li><code>n</code>: hay 20.640 bloques censales (recordemos que cada fila es un bloque, no una casa individual)</li>
 <li><code>media</code>: en promedio, el valor mediano de la vivienda de un bloque es de 206.856 dólares americanos</li>
@@ -332,8 +331,8 @@ sugiere probar una transformación logarítmica de la respuesta; (3) la mediana 
 el RIC son las medidas de resumen que deberíamos reportar, no la media y la
 desviación estándar.</p>
 </div>
-<div id="análisis-de-las-variables-independientes-características" class="section level2 hasAnchor" number="1.2">
-<h2><span class="header-section-number">1.2</span> Análisis de las variables independientes (características)<a href="intro.html#an%C3%A1lisis-de-las-variables-independientes-caracter%C3%ADsticas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="análisis-de-las-variables-independientes-características" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Análisis de las variables independientes (características)<a href="intro.html#an%C3%A1lisis-de-las-variables-independientes-caracter%C3%ADsticas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="intro.html#cb18-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
 <span id="cb18-2"><a href="intro.html#cb18-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.numeric), <span class="sc">-</span>median_house_value) <span class="sc">%&gt;%</span></span>
 <span id="cb18-3"><a href="intro.html#cb18-3" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
@@ -355,17 +354,16 @@ desviación estándar.</p>
 <span id="cb18-19"><a href="intro.html#cb18-19" tabindex="-1"></a>                 <span class="at">curtosis =</span> <span class="fu">kurtosis</span>(valor)</span>
 <span id="cb18-20"><a href="intro.html#cb18-20" tabindex="-1"></a>                 )</span></code></pre></div>
 <pre><code>## # A tibble: 8 × 12
-##   variable      n   media     sd mediana    RIC      Q1      Q3   minimo  maximo
-##   &lt;chr&gt;     &lt;int&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
-## 1 househol… 20640  500.   3.82e2  409    3.25e2  280     605       1      6082  
-## 2 housing_… 20640   28.6  1.26e1   29    1.9 e1   18      37       1        52  
-## 3 latitude  20640   35.6  2.14e0   34.3  3.78e0   33.9    37.7    32.5      42.0
-## 4 longitude 20640 -120.   2.00e0 -118.   3.79e0 -122.   -118.   -124.     -114. 
-## 5 median_i… 20640    3.87 1.90e0    3.53 2.18e0    2.56    4.74    0.500    15.0
-## 6 populati… 20640 1425.   1.13e3 1166    9.38e2  787    1725       3     35682  
-## 7 total_be… 20640  538.   4.19e2  438    3.46e2  297     643.      1      6445  
-## 8 total_ro… 20640 2636.   2.18e3 2127    1.70e3 1448.   3148       2     39320  
-## # ℹ 2 more variables: asi &lt;dbl&gt;, curtosis &lt;dbl&gt;</code></pre>
+##   variable               n   media      sd mediana     RIC      Q1      Q3   minimo  maximo     asi curtosis
+##   &lt;chr&gt;              &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;
+## 1 households         20640  500.    382.    409     325     280     605       1      6082    3.41      25.1 
+## 2 housing_median_age 20640   28.6    12.6    29      19      18      37       1        52    0.0603     2.20
+## 3 latitude           20640   35.6     2.14   34.3     3.78   33.9    37.7    32.5      42.0  0.466      1.88
+## 4 longitude          20640 -120.      2.00 -118.      3.79 -122.   -118.   -124.     -114.  -0.298      1.67
+## 5 median_income      20640    3.87    1.90    3.53    2.18    2.56    4.74    0.500    15.0  1.65       7.95
+## 6 population         20640 1425.   1132.   1166     938     787    1725       3     35682    4.94      76.5 
+## 7 total_bedrooms     20640  538.    419.    438     346.    297     643.      1      6445    3.48      25.2 
+## 8 total_rooms        20640 2636.   2182.   2127    1700.   1448.   3148       2     39320    4.15      35.6</code></pre>
 <p>El resumen estadístico de las 8 variables numéricas revela comportamientos muy distintos entre ellas. households y population presentan medias considerablemente superiores a sus medianas (499 vs 409 y 1425 vs 1166, respectivamente), junto con RIC elevados, lo que evidencia asimetría positiva y alta dispersión. total_rooms y total_bedrooms siguen el mismo patrón, con medias muy por encima de la mediana y desviaciones estándar enormes, confirmando lo observado en los boxplots. median_income muestra una distribución más equilibrada (media 3.87, mediana 3.53) con menor dispersión relativa, siendo la variable más homogénea del conjunto. housing_median_age es la más simétrica de todas, con media y mediana muy cercanas (~28.6 y 29) y el RIC más bajo. Finalmente, latitude y longitude corresponden a coordenadas geográficas, por lo que sus estadísticos describen la distribución espacial de los bloques censales en California, con poca variabilidad dado que el estado ocupa un rango geográfico acotado.</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="intro.html#cb20-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
 <span id="cb20-2"><a href="intro.html#cb20-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y=</span> housing_median_age))<span class="sc">+</span></span>
@@ -492,8 +490,8 @@ dos variables es poblacional, no un defecto de los datos.</p>
 <span id="cb26-13"><a href="intro.html#cb26-13" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
 <p><img src="notasmetodos_files/figure-html/barrasocean-1.png" alt="" width="672" /></p>
 </div>
-<div id="análisis-exploratorio-bivariado" class="section level2 hasAnchor" number="1.3">
-<h2><span class="header-section-number">1.3</span> Análisis exploratorio bivariado<a href="intro.html#an%C3%A1lisis-exploratorio-bivariado" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="análisis-exploratorio-bivariado" class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> Análisis exploratorio bivariado<a href="intro.html#an%C3%A1lisis-exploratorio-bivariado" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="intro.html#cb27-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
 <span id="cb27-2"><a href="intro.html#cb27-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> median_income, <span class="at">y =</span> median_house_value))<span class="sc">+</span></span>
 <span id="cb27-3"><a href="intro.html#cb27-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>, <span class="at">color =</span> <span class="st">&#39;darkblue&#39;</span>)<span class="sc">+</span></span>
@@ -549,14 +547,13 @@ lineal: se acelera en la parte alta de la distribución de ingresos.</p>
 <span id="cb29-13"><a href="intro.html#cb29-13" tabindex="-1"></a>                 <span class="at">curtosis =</span> <span class="fu">kurtosis</span>(median_house_value)</span>
 <span id="cb29-14"><a href="intro.html#cb29-14" tabindex="-1"></a>                 )</span></code></pre></div>
 <pre><code>## # A tibble: 5 × 12
-##   ocean_proximity     n  media     sd mediana    RIC     Q1     Q3 minimo maximo
-##   &lt;fct&gt;           &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-## 1 &lt;1H OCEAN        9136 2.40e5 1.06e5  214850 125000 164100 289100  17500 500001
-## 2 INLAND           6551 1.25e5 7.00e4  108500  71450  77500 148950  14999 500001
-## 3 ISLAND              5 3.80e5 8.06e4  414700 150000 300000 450000 287500 450000
-## 4 NEAR BAY         2290 2.59e5 1.23e5  233800 183200 162500 345700  22500 500001
-## 5 NEAR OCEAN       2658 2.49e5 1.22e5  229450 172750 150000 322750  22500 500001
-## # ℹ 2 more variables: asi &lt;dbl&gt;, curtosis &lt;dbl&gt;</code></pre>
+##   ocean_proximity     n   media      sd mediana    RIC     Q1     Q3 minimo maximo    asi curtosis
+##   &lt;fct&gt;           &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;
+## 1 &lt;1H OCEAN        9136 240084. 106124.  214850 125000 164100 289100  17500 500001  0.986     3.32
+## 2 INLAND           6551 124805.  70008.  108500  71450  77500 148950  14999 500001  2.11      9.32
+## 3 ISLAND              5 380440   80560.  414700 150000 300000 450000 287500 450000 -0.326     1.22
+## 4 NEAR BAY         2290 259212. 122819.  233800 183200 162500 345700  22500 500001  0.544     2.29
+## 5 NEAR OCEAN       2658 249434. 122477.  229450 172750 150000 322750  22500 500001  0.623     2.46</code></pre>
 <p>Veamos un gráfico de cajas y bigotes:</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="intro.html#cb31-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
 <span id="cb31-2"><a href="intro.html#cb31-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> ocean_proximity, <span class="at">y =</span> median_house_value))<span class="sc">+</span></span>
@@ -616,8 +613,8 @@ explica por qué <code>latitude</code> y <code>longitude</code> tienen correlaci
 el precio pese a ser tan informativas: el efecto de la ubicación no es
 “más al norte, más caro”, sino “más cerca del mar, más caro”, y eso ninguna
 recta sobre una sola coordenada lo captura.</p>
-<div id="relaciones-entre-las-propias-variables-independientes" class="section level3 hasAnchor" number="1.3.1">
-<h3><span class="header-section-number">1.3.1</span> Relaciones entre las propias variables independientes<a href="intro.html#relaciones-entre-las-propias-variables-independientes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="relaciones-entre-las-propias-variables-independientes" class="section level3 hasAnchor" number="1.4.1">
+<h3><span class="header-section-number">1.4.1</span> Relaciones entre las propias variables independientes<a href="intro.html#relaciones-entre-las-propias-variables-independientes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Hasta aquí hemos comparado cada característica con la respuesta. Igual de
 importante es ver cómo se relacionan entre sí, porque variables que miden lo
 mismo causan problemas al modelar:</p>
@@ -653,23 +650,123 @@ moderada. Eso quiere decir que ubicación e ingreso <strong>no</strong> son la m
 disfrazada y que cada una aporta información propia sobre el precio.</p>
 </div>
 </div>
-<div id="paquete-ggally" class="section level2 hasAnchor" number="1.4">
-<h2><span class="header-section-number">1.4</span> Paquete GGally<a href="intro.html#paquete-ggally" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="paquete-ggally" class="section level2 hasAnchor" number="1.5">
+<h2><span class="header-section-number">1.5</span> Paquete GGally<a href="intro.html#paquete-ggally" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="intro.html#cb37-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
 <span id="cb37-2"><a href="intro.html#cb37-2" tabindex="-1"></a>  <span class="fu">ggpairs</span>()</span></code></pre></div>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better value `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better value `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better value `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better value `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better value `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better value `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better value `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
+<pre><code>## plot: [1, 1] [&gt;--------------------------------------------------------------------------------------------------] 1% est: 0s
+## plot: [1, 2] [=&gt;-------------------------------------------------------------------------------------------------] 2% est: 3s
+## plot: [1, 3] [==&gt;------------------------------------------------------------------------------------------------] 3% est: 4s
+## plot: [1, 4] [===&gt;-----------------------------------------------------------------------------------------------] 4% est: 4s
+## plot: [1, 5] [====&gt;----------------------------------------------------------------------------------------------] 5% est: 4s
+## plot: [1, 6] [=====&gt;---------------------------------------------------------------------------------------------] 6% est: 4s
+## plot: [1, 7] [======&gt;--------------------------------------------------------------------------------------------] 7% est: 4s
+## plot: [1, 8] [=======&gt;-------------------------------------------------------------------------------------------] 8% est: 4s
+## plot: [1, 9] [========&gt;------------------------------------------------------------------------------------------] 9% est: 4s
+## plot: [1, 10] [=========&gt;----------------------------------------------------------------------------------------] 10% est: 4s
+## plot: [2, 1] [==========&gt;----------------------------------------------------------------------------------------] 11% est: 4s
+## plot: [2, 2] [===========&gt;---------------------------------------------------------------------------------------] 12% est: 4s
+## plot: [2, 3] [============&gt;--------------------------------------------------------------------------------------] 13% est: 4s
+## plot: [2, 4] [=============&gt;-------------------------------------------------------------------------------------] 14% est: 4s
+## plot: [2, 5] [==============&gt;------------------------------------------------------------------------------------] 15% est: 4s
+## plot: [2, 6] [===============&gt;-----------------------------------------------------------------------------------] 16% est: 4s
+## plot: [2, 7] [================&gt;----------------------------------------------------------------------------------] 17% est: 4s
+## plot: [2, 8] [=================&gt;---------------------------------------------------------------------------------] 18% est: 4s
+## plot: [2, 9] [==================&gt;--------------------------------------------------------------------------------] 19% est: 3s
+## plot: [2, 10] [===================&gt;------------------------------------------------------------------------------] 20% est: 3s
+## plot: [3, 1] [====================&gt;------------------------------------------------------------------------------] 21% est: 3s
+## plot: [3, 2] [=====================&gt;-----------------------------------------------------------------------------] 22% est: 3s
+## plot: [3, 3] [======================&gt;----------------------------------------------------------------------------] 23% est: 3s
+## plot: [3, 4] [=======================&gt;---------------------------------------------------------------------------] 24% est: 3s
+## plot: [3, 5] [========================&gt;--------------------------------------------------------------------------] 25% est: 3s
+## plot: [3, 6] [=========================&gt;-------------------------------------------------------------------------] 26% est: 3s
+## plot: [3, 7] [==========================&gt;------------------------------------------------------------------------] 27% est: 3s
+## plot: [3, 8] [===========================&gt;-----------------------------------------------------------------------] 28% est: 3s
+## plot: [3, 9] [============================&gt;----------------------------------------------------------------------] 29% est: 3s
+## plot: [3, 10] [============================&gt;---------------------------------------------------------------------] 30% est: 3s
+## plot: [4, 1] [==============================&gt;--------------------------------------------------------------------] 31% est: 3s
+## plot: [4, 2] [===============================&gt;-------------------------------------------------------------------] 32% est: 3s
+## plot: [4, 3] [================================&gt;------------------------------------------------------------------] 33% est: 3s
+## plot: [4, 4] [=================================&gt;-----------------------------------------------------------------] 34% est: 3s
+## plot: [4, 5] [==================================&gt;----------------------------------------------------------------] 35% est: 3s
+## plot: [4, 6] [===================================&gt;---------------------------------------------------------------] 36% est: 3s
+## plot: [4, 7] [====================================&gt;--------------------------------------------------------------] 37% est: 3s
+## plot: [4, 8] [=====================================&gt;-------------------------------------------------------------] 38% est: 3s
+## plot: [4, 9] [======================================&gt;------------------------------------------------------------] 39% est: 3s
+## plot: [4, 10] [======================================&gt;-----------------------------------------------------------] 40% est: 3s
+## plot: [5, 1] [========================================&gt;----------------------------------------------------------] 41% est: 3s
+## plot: [5, 2] [=========================================&gt;---------------------------------------------------------] 42% est: 3s
+## plot: [5, 3] [==========================================&gt;--------------------------------------------------------] 43% est: 3s
+## plot: [5, 4] [===========================================&gt;-------------------------------------------------------] 44% est: 3s
+## plot: [5, 5] [============================================&gt;------------------------------------------------------] 45% est: 3s
+## plot: [5, 6] [=============================================&gt;-----------------------------------------------------] 46% est: 3s
+## plot: [5, 7] [==============================================&gt;----------------------------------------------------] 47% est: 2s
+## plot: [5, 8] [===============================================&gt;---------------------------------------------------] 48% est: 2s
+## plot: [5, 9] [================================================&gt;--------------------------------------------------] 49% est: 2s
+## plot: [5, 10] [================================================&gt;-------------------------------------------------] 50% est: 2s
+## plot: [6, 1] [=================================================&gt;-------------------------------------------------] 51% est: 2s
+## plot: [6, 2] [==================================================&gt;------------------------------------------------] 52% est: 2s
+## plot: [6, 3] [===================================================&gt;-----------------------------------------------] 53% est: 2s
+## plot: [6, 4] [====================================================&gt;----------------------------------------------] 54% est: 2s
+## plot: [6, 5] [=====================================================&gt;---------------------------------------------] 55% est: 2s
+## plot: [6, 6] [======================================================&gt;--------------------------------------------] 56% est: 2s
+## plot: [6, 7] [=======================================================&gt;-------------------------------------------] 57% est: 2s
+## plot: [6, 8] [========================================================&gt;------------------------------------------] 58% est: 2s
+## plot: [6, 9] [=========================================================&gt;-----------------------------------------] 59% est: 2s
+## plot: [6, 10] [==========================================================&gt;---------------------------------------] 60% est: 2s
+## plot: [7, 1] [===========================================================&gt;---------------------------------------] 61% est: 2s
+## plot: [7, 2] [============================================================&gt;--------------------------------------] 62% est: 2s
+## plot: [7, 3] [=============================================================&gt;-------------------------------------] 63% est: 2s
+## plot: [7, 4] [==============================================================&gt;------------------------------------] 64% est: 2s
+## plot: [7, 5] [===============================================================&gt;-----------------------------------] 65% est: 2s
+## plot: [7, 6] [================================================================&gt;----------------------------------] 66% est: 2s
+## plot: [7, 7] [=================================================================&gt;---------------------------------] 67% est: 2s
+## plot: [7, 8] [==================================================================&gt;--------------------------------] 68% est: 1s
+## plot: [7, 9] [===================================================================&gt;-------------------------------] 69% est: 1s
+## plot: [7, 10] [====================================================================&gt;-----------------------------] 70% est: 1s
+## plot: [8, 1] [=====================================================================&gt;-----------------------------] 71% est: 1s
+## plot: [8, 2] [======================================================================&gt;----------------------------] 72% est: 1s
+## plot: [8, 3] [=======================================================================&gt;---------------------------] 73% est: 1s
+## plot: [8, 4] [========================================================================&gt;--------------------------] 74% est: 1s
+## plot: [8, 5] [=========================================================================&gt;-------------------------] 75% est: 1s
+## plot: [8, 6] [==========================================================================&gt;------------------------] 76% est: 1s
+## plot: [8, 7] [===========================================================================&gt;-----------------------] 77% est: 1s
+## plot: [8, 8] [============================================================================&gt;----------------------] 78% est: 1s
+## plot: [8, 9] [=============================================================================&gt;---------------------] 79% est: 1s
+## plot: [8, 10] [=============================================================================&gt;--------------------] 80% est: 1s
+## plot: [9, 1] [===============================================================================&gt;-------------------] 81% est: 1s
+## plot: [9, 2] [================================================================================&gt;------------------] 82% est: 1s
+## plot: [9, 3] [=================================================================================&gt;-----------------] 83% est: 1s
+## plot: [9, 4] [==================================================================================&gt;----------------] 84% est: 1s
+## plot: [9, 5] [===================================================================================&gt;---------------] 85% est: 1s
+## plot: [9, 6] [====================================================================================&gt;--------------] 86% est: 1s
+## plot: [9, 7] [=====================================================================================&gt;-------------] 87% est: 1s
+## plot: [9, 8] [======================================================================================&gt;------------] 88% est: 1s
+## plot: [9, 9] [=======================================================================================&gt;-----------] 89% est: 1s
+## plot: [9, 10] [=======================================================================================&gt;----------] 90% est: 0s
+## plot: [10, 1] [========================================================================================&gt;---------] 91% est: 0s
+## `stat_bin()` using `bins = 30`. Pick better value `binwidth`. plot: [10, 2]
+## [=========================================================================================&gt;--------] 92% est: 0s `stat_bin()`
+## using `bins = 30`. Pick better value `binwidth`. plot: [10, 3]
+## [==========================================================================================&gt;-------] 93% est: 0s `stat_bin()`
+## using `bins = 30`. Pick better value `binwidth`. plot: [10, 4]
+## [===========================================================================================&gt;------] 94% est: 0s `stat_bin()`
+## using `bins = 30`. Pick better value `binwidth`. plot: [10, 5]
+## [============================================================================================&gt;-----] 95% est: 0s `stat_bin()`
+## using `bins = 30`. Pick better value `binwidth`. plot: [10, 6]
+## [=============================================================================================&gt;----] 96% est: 0s `stat_bin()`
+## using `bins = 30`. Pick better value `binwidth`. plot: [10, 7]
+## [==============================================================================================&gt;---] 97% est: 0s `stat_bin()`
+## using `bins = 30`. Pick better value `binwidth`. plot: [10, 8]
+## [===============================================================================================&gt;--] 98% est: 0s `stat_bin()`
+## using `bins = 30`. Pick better value `binwidth`. plot: [10, 9]
+## [================================================================================================&gt;-] 99% est: 0s `stat_bin()`
+## using `bins = 30`. Pick better value `binwidth`. plot: [10, 10]
+## [=================================================================================================]100% est: 0s</code></pre>
 <p><img src="notasmetodos_files/figure-html/ggaly-1.png" alt="" width="672" /></p>
 </div>
-<div id="correlación" class="section level2 hasAnchor" number="1.5">
-<h2><span class="header-section-number">1.5</span> Correlación<a href="intro.html#correlaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="correlación" class="section level2 hasAnchor" number="1.6">
+<h2><span class="header-section-number">1.6</span> Correlación<a href="intro.html#correlaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><code>ggpairs()</code> nos ha dado todos los coeficientes de golpe, pero en una rejilla
 difícil de leer. Vamos a extraer solo la matriz de correlaciones y a
 representarla como un mapa de calor:</p>
@@ -696,12 +793,10 @@ representarla como un mapa de calor:</p>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="intro.html#cb40-1" tabindex="-1"></a>matriz_cor[, <span class="st">&#39;median_house_value&#39;</span>] <span class="sc">%&gt;%</span></span>
 <span id="cb40-2"><a href="intro.html#cb40-2" tabindex="-1"></a>  <span class="fu">sort</span>(<span class="at">decreasing =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb40-3"><a href="intro.html#cb40-3" tabindex="-1"></a>  <span class="fu">round</span>(<span class="dv">3</span>)</span></code></pre></div>
-<pre><code>## median_house_value      median_income        total_rooms housing_median_age 
-##              1.000              0.688              0.134              0.106 
-##         households     total_bedrooms         population          longitude 
-##              0.066              0.049             -0.025             -0.046 
-##           latitude 
-##             -0.144</code></pre>
+<pre><code>## median_house_value      median_income        total_rooms housing_median_age         households     total_bedrooms 
+##              1.000              0.688              0.134              0.106              0.066              0.049 
+##         population          longitude           latitude 
+##             -0.025             -0.046             -0.144</code></pre>
 <p><strong>Interpretación.</strong> La matriz deja ver tres cosas.</p>
 <p><em>Primera: una sola variable predice de verdad.</em> <code>median_income</code> correlaciona
 0,688 con el precio. La siguiente en la lista, <code>total_rooms</code>, se queda en 0,134,
@@ -726,8 +821,8 @@ norte se avanza también hacia el oeste.</p>
 <p>Una advertencia sobre el 0,688 del ingreso: está inflado por el tope de la
 respuesta. Si excluimos los 992 bloques censurados, la correlación baja a 0,647.</p>
 </div>
-<div id="ingeniería-de-características" class="section level2 hasAnchor" number="1.6">
-<h2><span class="header-section-number">1.6</span> Ingeniería de características<a href="intro.html#ingenier%C3%ADa-de-caracter%C3%ADsticas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="ingeniería-de-características" class="section level2 hasAnchor" number="1.7">
+<h2><span class="header-section-number">1.7</span> Ingeniería de características<a href="intro.html#ingenier%C3%ADa-de-caracter%C3%ADsticas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>El análisis anterior nos deja un diagnóstico claro: tenemos cuatro variables de
 tamaño redundantes entre sí y poco correlacionadas con el precio. El problema es
 que <code>total_rooms</code> mide <strong>cuán grande es el bloque</strong>, no cuán buenas son sus
@@ -795,8 +890,8 @@ habitaciones). Son bloques con poquísimos hogares donde la razón se dispara, o
 directamente errores. En total, 69 bloques superan las 20 habitaciones por hogar,
 37 superan las 10 personas por hogar y 10 tienen más dormitorios que
 habitaciones. Antes de modelar habría que revisarlos o recortarlos.</p>
-<div id="sirven-las-nuevas-variables" class="section level3 hasAnchor" number="1.6.1">
-<h3><span class="header-section-number">1.6.1</span> ¿Sirven las nuevas variables?<a href="intro.html#sirven-las-nuevas-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="sirven-las-nuevas-variables" class="section level3 hasAnchor" number="1.7.1">
+<h3><span class="header-section-number">1.7.1</span> ¿Sirven las nuevas variables?<a href="intro.html#sirven-las-nuevas-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="intro.html#cb46-1" tabindex="-1"></a>dfe <span class="sc">%&gt;%</span></span>
 <span id="cb46-2"><a href="intro.html#cb46-2" tabindex="-1"></a>  <span class="fu">select</span>(median_house_value, rooms_per_household, bedrooms_per_room,</span>
 <span id="cb46-3"><a href="intro.html#cb46-3" tabindex="-1"></a>         population_per_household, total_rooms, total_bedrooms,</span>
@@ -805,12 +900,10 @@ habitaciones. Antes de modelar habría que revisarlos o recortarlos.</p>
 <span id="cb46-6"><a href="intro.html#cb46-6" tabindex="-1"></a>  .[, <span class="st">&#39;median_house_value&#39;</span>] <span class="sc">%&gt;%</span></span>
 <span id="cb46-7"><a href="intro.html#cb46-7" tabindex="-1"></a>  <span class="fu">sort</span>(<span class="at">decreasing =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb46-8"><a href="intro.html#cb46-8" tabindex="-1"></a>  <span class="fu">round</span>(<span class="dv">3</span>)</span></code></pre></div>
-<pre><code>##       median_house_value      rooms_per_household              total_rooms 
-##                    1.000                    0.152                    0.134 
-##               households           total_bedrooms population_per_household 
-##                    0.066                    0.049                   -0.024 
-##               population        bedrooms_per_room 
-##                   -0.025                   -0.220</code></pre>
+<pre><code>##       median_house_value      rooms_per_household              total_rooms               households           total_bedrooms 
+##                    1.000                    0.152                    0.134                    0.066                    0.049 
+## population_per_household               population        bedrooms_per_room 
+##                   -0.024                   -0.025                   -0.220</code></pre>
 <p>Comparando cada razón con el total del que procede:</p>
 <table>
 <thead>
@@ -861,12 +954,10 @@ hacinamiento, menor precio. Solo hay que limpiarla antes.</p>
 <span id="cb48-6"><a href="intro.html#cb48-6" tabindex="-1"></a>  .[, <span class="st">&#39;median_house_value&#39;</span>] <span class="sc">%&gt;%</span></span>
 <span id="cb48-7"><a href="intro.html#cb48-7" tabindex="-1"></a>  <span class="fu">sort</span>(<span class="at">decreasing =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb48-8"><a href="intro.html#cb48-8" tabindex="-1"></a>  <span class="fu">round</span>(<span class="dv">3</span>)</span></code></pre></div>
-<pre><code>##       median_house_value            median_income      rooms_per_household 
-##                    1.000                    0.677                    0.263 
-##              total_rooms       housing_median_age                 latitude 
-##                    0.206                    0.075                   -0.166 
-## population_per_household        bedrooms_per_room 
-##                   -0.257                   -0.330</code></pre>
+<pre><code>##       median_house_value            median_income      rooms_per_household              total_rooms       housing_median_age 
+##                    1.000                    0.677                    0.263                    0.206                    0.075 
+##                 latitude population_per_household        bedrooms_per_room 
+##                   -0.166                   -0.257                   -0.330</code></pre>
 <p>Por rangos, las tres razones nuevas ocupan los puestos 2, 3 y 4 del ranking,
 justo detrás del ingreso. Ninguna variable original lo conseguía.</p>
 <p>Veamos gráficamente la más prometedora:</p>
