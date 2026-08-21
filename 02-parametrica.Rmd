@@ -1,0 +1,498 @@
+# (PART) Trabajo 2: Estadística paramétrica {-}
+
+# Estadística paramétrica {#parametrica}
+
+En el capítulo anterior hicimos análisis exploratorio de datos sobre una única
+base de datos (viviendas de California) con el fin de describir una variable
+respuesta numérica y sus relaciones con otras características. En este
+capítulo cambiamos de objetivo: en lugar de explorar, **contrastamos
+hipótesis**. Se aplican pruebas de estadística paramétrica (y su contraparte
+no paramétrica cuando los supuestos fallan) a **varias bases de datos**
+distintas, cada una pensada para ilustrar un escenario de comparación
+diferente: dos grupos independientes, dos grupos independientes con
+varianzas desiguales, datos pareados, y comparación de más de dos grupos.
+
+El razonamiento se repite en cada base de datos y sigue siempre la misma
+secuencia:
+
+1. Resumen exploratorio de los grupos a comparar.
+2. Verificación del supuesto de **normalidad** (Kolmogorov-Smirnov, Shapiro-Wilk
+   o Lilliefors, según el caso).
+3. Verificación del supuesto de **homocedasticidad** (igualdad de varianzas),
+   con `var.test`, Bartlett, Levene o Fligner-Killeen.
+4. Contraste de medias (o medianas) con la prueba correspondiente: t de Student
+   (varianzas iguales o Welch), t pareado, o su alternativa no paramétrica
+   (Wilcoxon/Mann-Whitney).
+5. Tamaño del efecto, cuando aplica.
+
+Además de aplicar cada función de R, en varios puntos **reproducimos el
+cálculo manualmente** a partir de la teoría (el estadístico, el p-valor y el
+intervalo de confianza) para verificar que coincide exactamente con la salida
+de la función nativa. Esto no es un adorno: es la forma de comprobar que
+entendemos qué hace la caja negra antes de confiar en ella.
+
+Cargamos las librerías que se usan a lo largo del capítulo:
+
+```{r libreria-parametrica, message=FALSE, warning=FALSE}
+library(readxl)
+library(dplyr)
+library(effsize)
+library(openintro)
+library(nortest)
+library(car)
+library(rstatix)
+library(coin)
+```
+
+## Presión arterial: dos grupos independientes con varianzas iguales
+
+Trabajamos con `data/datos_medicos.xlsx`, que registra 100 mediciones de
+presión sistólica y 100 de presión diastólica. El objetivo es determinar si
+existe una diferencia estadísticamente significativa entre los promedios de
+ambas.
+
+```{r data-medicos}
+df <- read_excel("data/datos_medicos.xlsx")
+df$Presion <- factor(df$Presion)
+
+dfs <- df %>%
+  filter(Presion == 'PresionSistolica') %>%
+  pull(Valores)
+
+dfd <- df %>%
+  filter(Presion == 'PresionDiastolica') %>%
+  pull(Valores)
+```
+
+### Análisis exploratorio
+
+```{r resumen-medicos}
+df %>%
+  group_by(Presion) %>%
+  summarise(n = length(Valores),
+            prom = mean(Valores),
+            ds = sd(Valores),
+            mediana = median(Valores),
+            RIC = IQR(Valores),
+            min = min(Valores),
+            max = max(Valores))
+```
+
+### Supuesto de normalidad
+
+Usamos la prueba de Kolmogorov-Smirnov sobre los datos estandarizados y,
+alternativamente, comparando directamente contra una normal con la media y
+desviación estándar muestrales (ambas formas son equivalentes):
+
+```{r normalidad-medicos}
+ks.test(scale(dfs), 'pnorm')
+ks.test(dfs, 'pnorm', mean = mean(dfs), sd = sd(dfs))
+
+ks.test(scale(dfd), 'pnorm')
+ks.test(dfd, 'pnorm', mean = mean(dfd), sd = sd(dfd))
+```
+
+No hay evidencia para rechazar la normalidad en ninguno de los dos grupos.
+
+### Supuesto de homocedasticidad
+
+```{r homocedasticidad-medicos}
+var.test(dfs, dfd)
+```
+
+#### Verificación teórica del `var.test`
+
+`var.test()` contrasta `H0: sigma_sist^2 / sigma_diast^2 = 1` frente a
+`H1: sigma_sist^2 / sigma_diast^2 != 1`. Internamente calcula:
+
+- **Estadístico:** $F = s_1^2 / s_2^2$, que bajo $H_0$ se distribuye como una
+  **F de Fisher-Snedecor** con $v_1 = n_1-1$ y $v_2 = n_2-1$ grados de libertad.
+- **p-valor bilateral:** $2 \cdot \min\big(P(F \le f),\ P(F \ge f)\big)$.
+- **Intervalo de confianza** $(1-\alpha)$ para $\sigma_1^2/\sigma_2^2$:
+  $\left(F \cdot \dfrac{1}{F_{1-\alpha/2}},\ F \cdot \dfrac{1}{F_{\alpha/2}}\right)$.
+
+Reproducimos el cálculo a mano:
+
+```{r teorema-varianzas}
+n1 <- length(dfs)
+n2 <- length(dfd)
+v1 <- n1 - 1
+v2 <- n2 - 1
+alpha <- 0.05
+
+# estadístico F = s1^2 / s2^2, se distribuye F(v1, v2) bajo H0
+F_calc <- var(dfs) / var(dfd)
+F_calc
+
+# p-valor bilateral
+p_valor_F <- 2 * min(pf(F_calc, v1, v2), 1 - pf(F_calc, v1, v2))
+p_valor_F
+
+# IC (1-alpha) para sigma1^2/sigma2^2
+li_F <- F_calc * (1 / qf(1 - alpha / 2, v1, v2))
+ls_F <- F_calc * (1 / qf(alpha / 2, v1, v2))
+c(li_F, ls_F)
+```
+
+El resultado manual (**F = 0.9278, p = 0.7102**, IC (0.624, 1.379)) coincide
+exactamente con la salida de `var.test()`. **Conclusión:** no hay diferencia
+significativa de varianzas, así que se puede usar el t-test clásico con
+varianzas iguales en lugar de la corrección de Welch.
+
+### Diferencia de medias: t de Student
+
+```{r ttest-medicos}
+t.test(x = dfs, y = dfd, var.equal = TRUE, paired = FALSE)
+```
+
+```{r cohen-medicos}
+cohen.d(dfs, dfd, paired = FALSE)
+```
+
+#### Verificación teórica del `t.test` (varianzas iguales)
+
+Con varianzas iguales, el estadístico usa la **varianza combinada (pooled)**:
+
+$$S_p^2 = \frac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1+n_2-2}, \qquad
+t = \frac{\bar{x}_1 - \bar{x}_2}{\sqrt{S_p^2\left(\frac{1}{n_1}+\frac{1}{n_2}\right)}}
+\ \sim\ t_{(n_1+n_2-2)}$$
+
+```{r teorema-medias}
+xbar1 <- mean(dfs)
+xbar2 <- mean(dfd)
+s1_2 <- var(dfs)
+s2_2 <- var(dfd)
+
+sp2 <- ((n1 - 1) * s1_2 + (n2 - 1) * s2_2) / (n1 + n2 - 2)
+gl <- n1 + n2 - 2
+
+t_calc <- (xbar1 - xbar2) / sqrt(sp2 * (1 / n1 + 1 / n2))
+t_calc
+
+p_valor_t <- 2 * (1 - pt(abs(t_calc), gl))
+p_valor_t
+
+t_crit <- qt(1 - alpha / 2, gl)
+li_t <- (xbar1 - xbar2) - t_crit * sqrt(sp2 * (1 / n1 + 1 / n2))
+ls_t <- (xbar1 - xbar2) + t_crit * sqrt(sp2 * (1 / n1 + 1 / n2))
+c(li_t, ls_t)
+```
+
+El cálculo a mano da **t = 31.888, p ≈ 0**, IC (39.36, 44.55), idéntico a
+`t.test(..., var.equal = TRUE)`.
+
+#### Aproximación con la distribución normal (Z)
+
+Como $n_1 = n_2 = 100 \ge 30$, por el Teorema del Límite Central se puede
+aproximar el contraste con `z` en vez de `t`, sin necesidad de varianza
+combinada:
+
+```{r teorema-z}
+se_z <- sqrt(s1_2 / n1 + s2_2 / n2)
+z_calc <- (xbar1 - xbar2) / se_z
+z_calc
+
+p_valor_z <- 2 * (1 - pnorm(abs(z_calc)))
+p_valor_z
+
+z_crit <- qnorm(1 - alpha / 2)
+li_z <- (xbar1 - xbar2) - z_crit * se_z
+ls_z <- (xbar1 - xbar2) + z_crit * se_z
+c(li_z, ls_z)
+```
+
+El resultado (**z = 31.888, p ≈ 0**, IC (39.38, 44.54)) es prácticamente igual
+al obtenido con `t`, tal como se espera cuando las muestras son grandes: la t
+de Student converge a la normal cuando los grados de libertad crecen.
+
+## Precio según tipo de cuenta: varianzas desiguales (Welch)
+
+Ahora usamos `data/datos_economia.xlsx`, que compara el precio de la cuenta
+entre dos tipos: `Inversion` y `Ganancia` (n = 100 cada uno).
+
+```{r data-economia}
+df <- read_excel("data/datos_economia.xlsx")
+df$`Tipo de cuenta` <- factor(df$`Tipo de cuenta`)
+
+dfi <- df %>%
+  filter(`Tipo de cuenta` == 'Inversion') %>%
+  pull(Precio)
+
+dfg <- df %>%
+  filter(`Tipo de cuenta` == 'Ganancia') %>%
+  pull(Precio)
+```
+
+### Análisis exploratorio
+
+```{r resumen-economia}
+df %>%
+  group_by(`Tipo de cuenta`) %>%
+  summarise(n = length(Precio),
+            prom = mean(Precio),
+            ds = sd(Precio),
+            mediana = median(Precio),
+            RIC = IQR(Precio),
+            min = min(Precio),
+            max = max(Precio))
+```
+
+### Supuesto de normalidad
+
+```{r normalidad-economia}
+ks.test(scale(dfi), 'pnorm')
+ks.test(scale(dfg), 'pnorm')
+```
+
+### Supuesto de homocedasticidad: tres formas de probarlo
+
+```{r vartest-economia}
+var.test(dfi, dfg)
+```
+
+`H0: sigma_inversion^2 = sigma_ganancia^2` frente a `H1:` varianzas distintas.
+Además de `var.test`, existen tres pruebas clásicas de homogeneidad de
+varianzas para dos o más grupos, que difieren en cómo construyen el
+estadístico y en su robustez frente a la falta de normalidad:
+
+| Prueba | Cómo funciona | Distribución del estadístico | Robustez a no-normalidad |
+|---|---|---|---|
+| **Bartlett** | Razón de verosimilitudes entre la varianza combinada y las varianzas de cada grupo | $\chi^2$ con $k-1$ g.l. | Baja — muy sensible; si los datos no son normales puede rechazar H0 aunque las varianzas sean iguales |
+| **Levene** | ANOVA de un factor sobre las desviaciones absolutas de cada dato respecto a la media/mediana de su grupo | F de Fisher-Snedecor con $(k-1, N-k)$ g.l. | Media-alta — al centrar en la mediana es robusta a asimetría y colas pesadas |
+| **Fligner-Killeen** | No paramétrica: rankea las desviaciones absolutas respecto a la mediana | $\chi^2$ con $k-1$ g.l. | Alta — la más robusta de las tres, ideal si hay atípicos o no hay normalidad |
+
+```{r homogeneidad-economia}
+# Bartlett: se basa en la razón de verosimilitudes entre la varianza combinada
+# y las varianzas de cada grupo. Muy sensible al incumplimiento de normalidad.
+bartlett.test(Precio ~ `Tipo de cuenta`, data = df)
+
+# Levene: usa las desviaciones absolutas de cada observación respecto a la
+# mediana de su grupo y aplica un ANOVA de un factor sobre esas desviaciones.
+leveneTest(Precio ~ `Tipo de cuenta`, data = df, center = "median")
+
+# Fligner-Killeen: prueba no paramétrica basada en los rangos de las
+# desviaciones absolutas respecto a la mediana de cada grupo.
+fligner.test(Precio ~ `Tipo de cuenta`, data = df)
+```
+
+**Resultado:** las tres pruebas rechazan $H_0$ (p < 0.001), coincidiendo con
+`var.test()` (F = 22.28, p < 0.001). **Conclusión:** las varianzas de
+`Precio` son claramente distintas entre `Inversion` y `Ganancia`, por lo que
+se justifica usar el **t-test de Welch** (`var.equal = FALSE`) en vez del
+t-test clásico.
+
+### Diferencia de medias: t de Welch
+
+```{r ttest-economia}
+t.test(x = dfi, y = dfg, var.equal = FALSE, paired = FALSE)
+```
+
+```{r cohen-economia}
+cohen.d(dfi, dfg)
+```
+
+## Datos pareados: intervención educativa
+
+Diez estudiantes fueron evaluados antes y después de una intervención
+educativa. Al tratarse del mismo individuo medido dos veces, las
+observaciones están **pareadas**, y eso cambia la prueba que corresponde
+aplicar.
+
+```{r data-pareados}
+datos <- data.frame(
+  estudiante = c(1:10),
+  antes = c(12.9, 13.5, 12.8, 15.6, 17.2, 19.2, 12.6, 15.3, 14.4, 11.3),
+  despues = c(12.7, 13.6, 12.0, 15.2, 16.8, 20.0, 12.0, 15.9, 16.0, 11.1)
+)
+```
+
+### Supuesto de normalidad
+
+```{r normalidad-pareados}
+shapiro.test(datos$antes)
+shapiro.test(datos$despues)
+```
+
+### Diferencia de medias: t pareado
+
+```{r ttest-pareado}
+t.test(x = datos$despues, y = datos$antes, paired = TRUE)
+```
+
+```{r cohen-pareado}
+cohen.d(datos$despues, datos$antes, paired = TRUE)
+```
+
+## Estadística no paramétrica: peso al nacer según hábito de fumar
+
+Usamos el conjunto `births` del paquete `openintro` para caracterizar el peso
+del bebé al nacer según si la madre fuma o no.
+
+```{r data-births}
+data('births')
+df <- births
+```
+
+### Análisis exploratorio
+
+```{r resumen-births}
+df %>%
+  group_by(smoke) %>%
+  summarise(n = length(smoke),
+            prom = mean(weight),
+            ds = sd(weight),
+            mediana = median(weight),
+            RIC = IQR(weight),
+            min = min(weight),
+            max = max(weight))
+```
+
+### Supuesto de normalidad
+
+Comparamos tres pruebas de normalidad a la vez: Kolmogorov-Smirnov,
+Shapiro-Wilk y Lilliefors.
+
+```{r normalidad-births}
+df %>%
+  group_by(smoke) %>%
+  summarise(n = length(weight),
+            est_ks = ks.test(scale(weight), 'pnorm')$statistic,
+            p_ks = ks.test(scale(weight), 'pnorm')$p.value,
+            est_sw = shapiro.test(weight)$statistic,
+            p_sw = shapiro.test(weight)$p.value,
+            est_l = lillie.test(weight)$statistic,
+            p_l = lillie.test(weight)$p.value)
+```
+
+Al menos uno de los grupos se aleja de la normalidad, así que conviene usar
+una alternativa no paramétrica para comparar los dos grupos.
+
+```{r levene-births}
+leveneTest(weight ~ smoke, data = df, center = median)
+```
+
+### Corrección de un error y prueba de Wilcoxon/Mann-Whitney
+
+`wilcox.test(weight ~ smoke, data = df, paired = FALSE)` falla porque el
+**método fórmula** de `wilcox.test` no admite el argumento `paired` (solo el
+método `x, y` lo admite). Se corrige extrayendo los vectores directamente:
+
+```{r wilcox-births}
+wilcox.test(x = df$weight[df$smoke == "smoker"],
+            y = df$weight[df$smoke == "nonsmoker"])
+```
+
+**Resultado:** W = 2121, p = 0.1312. No hay diferencia significativa en el
+peso al nacer entre madres fumadoras y no fumadoras.
+
+## Homogeneidad de varianzas con más de dos grupos: tiempo de resolución en tres escuelas
+
+Siete estudiantes de cada una de tres escuelas (A, B, C) resolvieron un
+ejercicio de álgebra; se registró el tiempo, en minutos, que tardó cada uno.
+Con $k = 3$ grupos aplicamos de nuevo las tres pruebas de homogeneidad de
+varianzas, como paso previo a un ANOVA de un factor.
+
+```{r data-estudiantes}
+estudiantes <- data.frame(
+  escuela = rep(c("A", "B", "C"), each = 7),
+  tiempo = c(17, 21, 25, 16, 19, 22, 18,   # Escuela A
+             24, 18, 19, 22, 23, 20, 21,   # Escuela B
+             25, 24, 25, 21, 24, 28, 19)   # Escuela C
+)
+```
+
+```{r homogeneidad-estudiantes}
+bartlett.test(tiempo ~ escuela, data = estudiantes)
+leveneTest(tiempo ~ escuela, data = estudiantes, center = "median")
+fligner.test(tiempo ~ escuela, data = estudiantes)
+```
+
+| Prueba | Estadístico | g.l. | p-valor |
+|---|---|---|---|
+| Bartlett | K² = 0.823 | 2 | 0.6627 |
+| Levene (centro = mediana) | F = 0.3065 | 2, 18 | 0.7398 |
+| Fligner-Killeen | χ² = 0.6398 | 2 | 0.7262 |
+
+**Conclusión:** las tres pruebas dan p > 0.05, así que no se rechaza $H_0$.
+Las varianzas del tiempo de resolución son homogéneas entre las tres
+escuelas, lo que respalda el supuesto de igualdad de varianzas necesario
+para aplicar un ANOVA de un factor sobre estos datos.
+
+## Estadística no paramétrica pareada: percepción de los estudiantes
+
+Por último, `data/dataQ.tsv` recoge la respuesta a una pregunta de
+percepción (`Q1`) contestada por los mismos estudiantes antes y después de
+un experimento (`Pretest` / `Post-test`): de nuevo, datos **pareados**, pero
+esta vez con una variable que no cumple normalidad.
+
+```{r data-dataQ}
+df <- read.delim("data/dataQ.tsv")
+```
+
+### Análisis exploratorio
+
+```{r resumen-dataQ}
+df %>%
+  group_by(Experimento) %>%
+  summarise(n = length(Q1),
+            prom = mean(Q1),
+            ds = sd(Q1),
+            mediana = median(Q1),
+            RIC = IQR(Q1),
+            min = min(Q1),
+            max = max(Q1))
+```
+
+### Supuesto de normalidad
+
+```{r normalidad-dataQ}
+df %>%
+  group_by(Experimento) %>%
+  summarise(n = length(Q1),
+            est_ks = ks.test(scale(Q1), 'pnorm')$statistic,
+            p_ks = ks.test(scale(Q1), 'pnorm')$p.value,
+            est_sw = shapiro.test(Q1)$statistic,
+            p_sw = shapiro.test(Q1)$p.value,
+            est_l = lillie.test(Q1)$statistic,
+            p_l = lillie.test(Q1)$p.value)
+```
+
+### Wilcoxon pareado y tamaño del efecto
+
+```{r wilcox-dataQ}
+pretestq1 <- df %>%
+  select(Experimento, Q1) %>%
+  filter(Experimento == 'Pretest')
+
+postestq1 <- df %>%
+  select(Experimento, Q1) %>%
+  filter(Experimento == 'Post-test')
+
+wilcox.test(x = pretestq1$Q1, y = postestq1$Q1, paired = TRUE)
+```
+
+```{r effsize-dataQ}
+df %>%
+  wilcox_effsize(Q1 ~ Experimento, paired = TRUE)
+```
+
+Con una confianza del 95% se concluye que hay diferencias estadísticamente
+significativas en la percepción medida por `Q1` entre el pretest y el
+post-test.
+
+## Resumen del capítulo
+
+| Base de datos | Diseño | Supuesto de varianzas | Prueba aplicada |
+|---|---|---|---|
+| Presión arterial | 2 grupos independientes | Iguales (`var.test` no rechaza) | t de Student clásico |
+| Precio por tipo de cuenta | 2 grupos independientes | Distintas (Bartlett/Levene/Fligner rechazan) | t de Welch |
+| Intervención educativa | Pareado | — | t pareado |
+| Peso al nacer / tabaquismo | 2 grupos independientes | No normalidad | Wilcoxon/Mann-Whitney |
+| Tiempo de resolución / 3 escuelas | 3 grupos independientes | Iguales (paso previo a ANOVA) | Bartlett, Levene, Fligner-Killeen |
+| Percepción Q1 (pre/post) | Pareado, no normal | — | Wilcoxon pareado |
+
+El hilo conductor de todo el capítulo es que **la prueba correcta depende de
+los supuestos**, no de la preferencia por un método u otro: primero se
+verifica normalidad y homocedasticidad, y solo después se elige entre la
+prueba paramétrica clásica, su variante robusta (Welch) o su alternativa no
+paramétrica.

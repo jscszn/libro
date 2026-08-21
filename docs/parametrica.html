@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 2 Estadística paramétrica | Libro de estadística</title>
+  <meta name="description" content="Notas de métodos estadísticos: análisis exploratorio del precio de la vivienda en California y estadística paramétrica con diversas bases de datos." />
+  <meta name="generator" content="bookdown 0.47 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 2 Estadística paramétrica | Libro de estadística" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Notas de métodos estadísticos: análisis exploratorio del precio de la vivienda en California y estadística paramétrica con diversas bases de datos." />
+  <meta name="github-repo" content="jscszn/libro" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 2 Estadística paramétrica | Libro de estadística" />
+  
+  <meta name="twitter:description" content="Notas de métodos estadísticos: análisis exploratorio del precio de la vivienda en California y estadística paramétrica con diversas bases de datos." />
+  
+
+<meta name="author" content="Jose Castro Zúñiga" />
+<meta name="author" content="Jimara Urzola" />
+
+
+<meta name="date" content="2026-08-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="intro.html"/>
+<link rel="next" href="referencias.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Librito de estadística</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Contexto del problema</a>
+<ul>
+<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#trabajo-1-an%C3%A1lisis-exploratorio-con-variable-respuesta-num%C3%A9rica"><i class="fa fa-check"></i><b>0.1</b> Trabajo 1: análisis exploratorio con variable respuesta numérica</a></li>
+<li class="chapter" data-level="0.2" data-path="index.html"><a href="index.html#trabajo-2-estad%C3%ADstica-param%C3%A9trica-con-diversas-bases-de-datos"><i class="fa fa-check"></i><b>0.2</b> Trabajo 2: estadística paramétrica con diversas bases de datos</a></li>
+</ul></li>
+<li class="part"><span><b>I Trabajo 1: Análisis exploratorio</b></span></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> EDA</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#etl-extracci%C3%B3n-transformaci%C3%B3n-y-carga"><i class="fa fa-check"></i><b>1.1</b> ETL (Extracción, transformación y carga)</a></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#an%C3%A1lisis-exploratorio-de-median_house_value-target"><i class="fa fa-check"></i><b>1.2</b> Análisis exploratorio de <code>median_house_value</code> (Target)</a></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#an%C3%A1lisis-de-las-variables-independientes-caracter%C3%ADsticas"><i class="fa fa-check"></i><b>1.3</b> Análisis de las variables independientes (características)</a></li>
+<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#an%C3%A1lisis-exploratorio-bivariado"><i class="fa fa-check"></i><b>1.4</b> Análisis exploratorio bivariado</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="intro.html"><a href="intro.html#relaciones-entre-las-propias-variables-independientes"><i class="fa fa-check"></i><b>1.4.1</b> Relaciones entre las propias variables independientes</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="intro.html"><a href="intro.html#paquete-ggally"><i class="fa fa-check"></i><b>1.5</b> Paquete GGally</a></li>
+<li class="chapter" data-level="1.6" data-path="intro.html"><a href="intro.html#correlaci%C3%B3n"><i class="fa fa-check"></i><b>1.6</b> Correlación</a></li>
+<li class="chapter" data-level="1.7" data-path="intro.html"><a href="intro.html#ingenier%C3%ADa-de-caracter%C3%ADsticas"><i class="fa fa-check"></i><b>1.7</b> Ingeniería de características</a>
+<ul>
+<li class="chapter" data-level="1.7.1" data-path="intro.html"><a href="intro.html#sirven-las-nuevas-variables"><i class="fa fa-check"></i><b>1.7.1</b> ¿Sirven las nuevas variables?</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>II Trabajo 2: Estadística paramétrica</b></span></li>
+<li class="chapter" data-level="2" data-path="parametrica.html"><a href="parametrica.html"><i class="fa fa-check"></i><b>2</b> Estadística paramétrica</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="parametrica.html"><a href="parametrica.html#presi%C3%B3n-arterial-dos-grupos-independientes-con-varianzas-iguales"><i class="fa fa-check"></i><b>2.1</b> Presión arterial: dos grupos independientes con varianzas iguales</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="parametrica.html"><a href="parametrica.html#an%C3%A1lisis-exploratorio"><i class="fa fa-check"></i><b>2.1.1</b> Análisis exploratorio</a></li>
+<li class="chapter" data-level="2.1.2" data-path="parametrica.html"><a href="parametrica.html#supuesto-de-normalidad"><i class="fa fa-check"></i><b>2.1.2</b> Supuesto de normalidad</a></li>
+<li class="chapter" data-level="2.1.3" data-path="parametrica.html"><a href="parametrica.html#supuesto-de-homocedasticidad"><i class="fa fa-check"></i><b>2.1.3</b> Supuesto de homocedasticidad</a></li>
+<li class="chapter" data-level="2.1.4" data-path="parametrica.html"><a href="parametrica.html#diferencia-de-medias-t-de-student"><i class="fa fa-check"></i><b>2.1.4</b> Diferencia de medias: t de Student</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="parametrica.html"><a href="parametrica.html#precio-seg%C3%BAn-tipo-de-cuenta-varianzas-desiguales-welch"><i class="fa fa-check"></i><b>2.2</b> Precio según tipo de cuenta: varianzas desiguales (Welch)</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="parametrica.html"><a href="parametrica.html#an%C3%A1lisis-exploratorio-1"><i class="fa fa-check"></i><b>2.2.1</b> Análisis exploratorio</a></li>
+<li class="chapter" data-level="2.2.2" data-path="parametrica.html"><a href="parametrica.html#supuesto-de-normalidad-1"><i class="fa fa-check"></i><b>2.2.2</b> Supuesto de normalidad</a></li>
+<li class="chapter" data-level="2.2.3" data-path="parametrica.html"><a href="parametrica.html#supuesto-de-homocedasticidad-tres-formas-de-probarlo"><i class="fa fa-check"></i><b>2.2.3</b> Supuesto de homocedasticidad: tres formas de probarlo</a></li>
+<li class="chapter" data-level="2.2.4" data-path="parametrica.html"><a href="parametrica.html#diferencia-de-medias-t-de-welch"><i class="fa fa-check"></i><b>2.2.4</b> Diferencia de medias: t de Welch</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="parametrica.html"><a href="parametrica.html#datos-pareados-intervenci%C3%B3n-educativa"><i class="fa fa-check"></i><b>2.3</b> Datos pareados: intervención educativa</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="parametrica.html"><a href="parametrica.html#supuesto-de-normalidad-2"><i class="fa fa-check"></i><b>2.3.1</b> Supuesto de normalidad</a></li>
+<li class="chapter" data-level="2.3.2" data-path="parametrica.html"><a href="parametrica.html#diferencia-de-medias-t-pareado"><i class="fa fa-check"></i><b>2.3.2</b> Diferencia de medias: t pareado</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="parametrica.html"><a href="parametrica.html#estad%C3%ADstica-no-param%C3%A9trica-peso-al-nacer-seg%C3%BAn-h%C3%A1bito-de-fumar"><i class="fa fa-check"></i><b>2.4</b> Estadística no paramétrica: peso al nacer según hábito de fumar</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="parametrica.html"><a href="parametrica.html#an%C3%A1lisis-exploratorio-2"><i class="fa fa-check"></i><b>2.4.1</b> Análisis exploratorio</a></li>
+<li class="chapter" data-level="2.4.2" data-path="parametrica.html"><a href="parametrica.html#supuesto-de-normalidad-3"><i class="fa fa-check"></i><b>2.4.2</b> Supuesto de normalidad</a></li>
+<li class="chapter" data-level="2.4.3" data-path="parametrica.html"><a href="parametrica.html#correcci%C3%B3n-de-un-error-y-prueba-de-wilcoxonmann-whitney"><i class="fa fa-check"></i><b>2.4.3</b> Corrección de un error y prueba de Wilcoxon/Mann-Whitney</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="parametrica.html"><a href="parametrica.html#homogeneidad-de-varianzas-con-m%C3%A1s-de-dos-grupos-tiempo-de-resoluci%C3%B3n-en-tres-escuelas"><i class="fa fa-check"></i><b>2.5</b> Homogeneidad de varianzas con más de dos grupos: tiempo de resolución en tres escuelas</a></li>
+<li class="chapter" data-level="2.6" data-path="parametrica.html"><a href="parametrica.html#estad%C3%ADstica-no-param%C3%A9trica-pareada-percepci%C3%B3n-de-los-estudiantes"><i class="fa fa-check"></i><b>2.6</b> Estadística no paramétrica pareada: percepción de los estudiantes</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="parametrica.html"><a href="parametrica.html#an%C3%A1lisis-exploratorio-3"><i class="fa fa-check"></i><b>2.6.1</b> Análisis exploratorio</a></li>
+<li class="chapter" data-level="2.6.2" data-path="parametrica.html"><a href="parametrica.html#supuesto-de-normalidad-4"><i class="fa fa-check"></i><b>2.6.2</b> Supuesto de normalidad</a></li>
+<li class="chapter" data-level="2.6.3" data-path="parametrica.html"><a href="parametrica.html#wilcoxon-pareado-y-tama%C3%B1o-del-efecto"><i class="fa fa-check"></i><b>2.6.3</b> Wilcoxon pareado y tamaño del efecto</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="parametrica.html"><a href="parametrica.html#resumen-del-cap%C3%ADtulo"><i class="fa fa-check"></i><b>2.7</b> Resumen del capítulo</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Publicado con bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Libro de estadística</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="parametrica" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Capítulo 2</span> Estadística paramétrica<a href="parametrica.html#parametrica" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>En el capítulo anterior hicimos análisis exploratorio de datos sobre una única
+base de datos (viviendas de California) con el fin de describir una variable
+respuesta numérica y sus relaciones con otras características. En este
+capítulo cambiamos de objetivo: en lugar de explorar, <strong>contrastamos
+hipótesis</strong>. Se aplican pruebas de estadística paramétrica (y su contraparte
+no paramétrica cuando los supuestos fallan) a <strong>varias bases de datos</strong>
+distintas, cada una pensada para ilustrar un escenario de comparación
+diferente: dos grupos independientes, dos grupos independientes con
+varianzas desiguales, datos pareados, y comparación de más de dos grupos.</p>
+<p>El razonamiento se repite en cada base de datos y sigue siempre la misma
+secuencia:</p>
+<ol style="list-style-type: decimal">
+<li>Resumen exploratorio de los grupos a comparar.</li>
+<li>Verificación del supuesto de <strong>normalidad</strong> (Kolmogorov-Smirnov, Shapiro-Wilk
+o Lilliefors, según el caso).</li>
+<li>Verificación del supuesto de <strong>homocedasticidad</strong> (igualdad de varianzas),
+con <code>var.test</code>, Bartlett, Levene o Fligner-Killeen.</li>
+<li>Contraste de medias (o medianas) con la prueba correspondiente: t de Student
+(varianzas iguales o Welch), t pareado, o su alternativa no paramétrica
+(Wilcoxon/Mann-Whitney).</li>
+<li>Tamaño del efecto, cuando aplica.</li>
+</ol>
+<p>Además de aplicar cada función de R, en varios puntos <strong>reproducimos el
+cálculo manualmente</strong> a partir de la teoría (el estadístico, el p-valor y el
+intervalo de confianza) para verificar que coincide exactamente con la salida
+de la función nativa. Esto no es un adorno: es la forma de comprobar que
+entendemos qué hace la caja negra antes de confiar en ella.</p>
+<p>Cargamos las librerías que se usan a lo largo del capítulo:</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="parametrica.html#cb53-1" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb53-2"><a href="parametrica.html#cb53-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb53-3"><a href="parametrica.html#cb53-3" tabindex="-1"></a><span class="fu">library</span>(effsize)</span>
+<span id="cb53-4"><a href="parametrica.html#cb53-4" tabindex="-1"></a><span class="fu">library</span>(openintro)</span>
+<span id="cb53-5"><a href="parametrica.html#cb53-5" tabindex="-1"></a><span class="fu">library</span>(nortest)</span>
+<span id="cb53-6"><a href="parametrica.html#cb53-6" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb53-7"><a href="parametrica.html#cb53-7" tabindex="-1"></a><span class="fu">library</span>(rstatix)</span>
+<span id="cb53-8"><a href="parametrica.html#cb53-8" tabindex="-1"></a><span class="fu">library</span>(coin)</span></code></pre></div>
+<div id="presión-arterial-dos-grupos-independientes-con-varianzas-iguales" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Presión arterial: dos grupos independientes con varianzas iguales<a href="parametrica.html#presi%C3%B3n-arterial-dos-grupos-independientes-con-varianzas-iguales" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Trabajamos con <code>data/datos_medicos.xlsx</code>, que registra 100 mediciones de
+presión sistólica y 100 de presión diastólica. El objetivo es determinar si
+existe una diferencia estadísticamente significativa entre los promedios de
+ambas.</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="parametrica.html#cb54-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;data/datos_medicos.xlsx&quot;</span>)</span>
+<span id="cb54-2"><a href="parametrica.html#cb54-2" tabindex="-1"></a>df<span class="sc">$</span>Presion <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>Presion)</span>
+<span id="cb54-3"><a href="parametrica.html#cb54-3" tabindex="-1"></a></span>
+<span id="cb54-4"><a href="parametrica.html#cb54-4" tabindex="-1"></a>dfs <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb54-5"><a href="parametrica.html#cb54-5" tabindex="-1"></a>  <span class="fu">filter</span>(Presion <span class="sc">==</span> <span class="st">&#39;PresionSistolica&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb54-6"><a href="parametrica.html#cb54-6" tabindex="-1"></a>  <span class="fu">pull</span>(Valores)</span>
+<span id="cb54-7"><a href="parametrica.html#cb54-7" tabindex="-1"></a></span>
+<span id="cb54-8"><a href="parametrica.html#cb54-8" tabindex="-1"></a>dfd <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb54-9"><a href="parametrica.html#cb54-9" tabindex="-1"></a>  <span class="fu">filter</span>(Presion <span class="sc">==</span> <span class="st">&#39;PresionDiastolica&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb54-10"><a href="parametrica.html#cb54-10" tabindex="-1"></a>  <span class="fu">pull</span>(Valores)</span></code></pre></div>
+<div id="análisis-exploratorio" class="section level3 hasAnchor" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Análisis exploratorio<a href="parametrica.html#an%C3%A1lisis-exploratorio" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="parametrica.html#cb55-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb55-2"><a href="parametrica.html#cb55-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Presion) <span class="sc">%&gt;%</span></span>
+<span id="cb55-3"><a href="parametrica.html#cb55-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">length</span>(Valores),</span>
+<span id="cb55-4"><a href="parametrica.html#cb55-4" tabindex="-1"></a>            <span class="at">prom =</span> <span class="fu">mean</span>(Valores),</span>
+<span id="cb55-5"><a href="parametrica.html#cb55-5" tabindex="-1"></a>            <span class="at">ds =</span> <span class="fu">sd</span>(Valores),</span>
+<span id="cb55-6"><a href="parametrica.html#cb55-6" tabindex="-1"></a>            <span class="at">mediana =</span> <span class="fu">median</span>(Valores),</span>
+<span id="cb55-7"><a href="parametrica.html#cb55-7" tabindex="-1"></a>            <span class="at">RIC =</span> <span class="fu">IQR</span>(Valores),</span>
+<span id="cb55-8"><a href="parametrica.html#cb55-8" tabindex="-1"></a>            <span class="at">min =</span> <span class="fu">min</span>(Valores),</span>
+<span id="cb55-9"><a href="parametrica.html#cb55-9" tabindex="-1"></a>            <span class="at">max =</span> <span class="fu">max</span>(Valores))</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 8
+##   Presion               n  prom    ds mediana   RIC   min   max
+##   &lt;fct&gt;             &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 PresionDiastolica   100  78.9  9.48    77.8  12.4  59.9  112.
+## 2 PresionSistolica    100 121.   9.13   121.   11.9  96.9  142.</code></pre>
+</div>
+<div id="supuesto-de-normalidad" class="section level3 hasAnchor" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> Supuesto de normalidad<a href="parametrica.html#supuesto-de-normalidad" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Usamos la prueba de Kolmogorov-Smirnov sobre los datos estandarizados y,
+alternativamente, comparando directamente contra una normal con la media y
+desviación estándar muestrales (ambas formas son equivalentes):</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="parametrica.html#cb57-1" tabindex="-1"></a><span class="fu">ks.test</span>(<span class="fu">scale</span>(dfs), <span class="st">&#39;pnorm&#39;</span>)</span></code></pre></div>
+<pre><code>## 
+##  Asymptotic one-sample Kolmogorov-Smirnov test
+## 
+## data:  scale(dfs)
+## D = 0.058097, p-value = 0.8884
+## alternative hypothesis: two-sided</code></pre>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="parametrica.html#cb59-1" tabindex="-1"></a><span class="fu">ks.test</span>(dfs, <span class="st">&#39;pnorm&#39;</span>, <span class="at">mean =</span> <span class="fu">mean</span>(dfs), <span class="at">sd =</span> <span class="fu">sd</span>(dfs))</span></code></pre></div>
+<pre><code>## 
+##  Asymptotic one-sample Kolmogorov-Smirnov test
+## 
+## data:  dfs
+## D = 0.058097, p-value = 0.8884
+## alternative hypothesis: two-sided</code></pre>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="parametrica.html#cb61-1" tabindex="-1"></a><span class="fu">ks.test</span>(<span class="fu">scale</span>(dfd), <span class="st">&#39;pnorm&#39;</span>)</span></code></pre></div>
+<pre><code>## 
+##  Asymptotic one-sample Kolmogorov-Smirnov test
+## 
+## data:  scale(dfd)
+## D = 0.057927, p-value = 0.8905
+## alternative hypothesis: two-sided</code></pre>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="parametrica.html#cb63-1" tabindex="-1"></a><span class="fu">ks.test</span>(dfd, <span class="st">&#39;pnorm&#39;</span>, <span class="at">mean =</span> <span class="fu">mean</span>(dfd), <span class="at">sd =</span> <span class="fu">sd</span>(dfd))</span></code></pre></div>
+<pre><code>## 
+##  Asymptotic one-sample Kolmogorov-Smirnov test
+## 
+## data:  dfd
+## D = 0.057927, p-value = 0.8905
+## alternative hypothesis: two-sided</code></pre>
+<p>No hay evidencia para rechazar la normalidad en ninguno de los dos grupos.</p>
+</div>
+<div id="supuesto-de-homocedasticidad" class="section level3 hasAnchor" number="2.1.3">
+<h3><span class="header-section-number">2.1.3</span> Supuesto de homocedasticidad<a href="parametrica.html#supuesto-de-homocedasticidad" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="parametrica.html#cb65-1" tabindex="-1"></a><span class="fu">var.test</span>(dfs, dfd)</span></code></pre></div>
+<pre><code>## 
+##  F test to compare two variances
+## 
+## data:  dfs and dfd
+## F = 0.92784, num df = 99, denom df = 99, p-value = 0.7102
+## alternative hypothesis: true ratio of variances is not equal to 1
+## 95 percent confidence interval:
+##  0.6242897 1.3789878
+## sample estimates:
+## ratio of variances 
+##          0.9278405</code></pre>
+<div id="verificación-teórica-del-var.test" class="section level4 hasAnchor" number="2.1.3.1">
+<h4><span class="header-section-number">2.1.3.1</span> Verificación teórica del <code>var.test</code><a href="parametrica.html#verificaci%C3%B3n-te%C3%B3rica-del-var.test" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><code>var.test()</code> contrasta <code>H0: sigma_sist^2 / sigma_diast^2 = 1</code> frente a
+<code>H1: sigma_sist^2 / sigma_diast^2 != 1</code>. Internamente calcula:</p>
+<ul>
+<li><strong>Estadístico:</strong> <span class="math inline">\(F = s_1^2 / s_2^2\)</span>, que bajo <span class="math inline">\(H_0\)</span> se distribuye como una
+<strong>F de Fisher-Snedecor</strong> con <span class="math inline">\(v_1 = n_1-1\)</span> y <span class="math inline">\(v_2 = n_2-1\)</span> grados de libertad.</li>
+<li><strong>p-valor bilateral:</strong> <span class="math inline">\(2 \cdot \min\big(P(F \le f),\ P(F \ge f)\big)\)</span>.</li>
+<li><strong>Intervalo de confianza</strong> <span class="math inline">\((1-\alpha)\)</span> para <span class="math inline">\(\sigma_1^2/\sigma_2^2\)</span>:
+<span class="math inline">\(\left(F \cdot \dfrac{1}{F_{1-\alpha/2}},\ F \cdot \dfrac{1}{F_{\alpha/2}}\right)\)</span>.</li>
+</ul>
+<p>Reproducimos el cálculo a mano:</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="parametrica.html#cb67-1" tabindex="-1"></a>n1 <span class="ot">&lt;-</span> <span class="fu">length</span>(dfs)</span>
+<span id="cb67-2"><a href="parametrica.html#cb67-2" tabindex="-1"></a>n2 <span class="ot">&lt;-</span> <span class="fu">length</span>(dfd)</span>
+<span id="cb67-3"><a href="parametrica.html#cb67-3" tabindex="-1"></a>v1 <span class="ot">&lt;-</span> n1 <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb67-4"><a href="parametrica.html#cb67-4" tabindex="-1"></a>v2 <span class="ot">&lt;-</span> n2 <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb67-5"><a href="parametrica.html#cb67-5" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb67-6"><a href="parametrica.html#cb67-6" tabindex="-1"></a></span>
+<span id="cb67-7"><a href="parametrica.html#cb67-7" tabindex="-1"></a><span class="co"># estadístico F = s1^2 / s2^2, se distribuye F(v1, v2) bajo H0</span></span>
+<span id="cb67-8"><a href="parametrica.html#cb67-8" tabindex="-1"></a>F_calc <span class="ot">&lt;-</span> <span class="fu">var</span>(dfs) <span class="sc">/</span> <span class="fu">var</span>(dfd)</span>
+<span id="cb67-9"><a href="parametrica.html#cb67-9" tabindex="-1"></a>F_calc</span></code></pre></div>
+<pre><code>## [1] 0.9278405</code></pre>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="parametrica.html#cb69-1" tabindex="-1"></a><span class="co"># p-valor bilateral</span></span>
+<span id="cb69-2"><a href="parametrica.html#cb69-2" tabindex="-1"></a>p_valor_F <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">min</span>(<span class="fu">pf</span>(F_calc, v1, v2), <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pf</span>(F_calc, v1, v2))</span>
+<span id="cb69-3"><a href="parametrica.html#cb69-3" tabindex="-1"></a>p_valor_F</span></code></pre></div>
+<pre><code>## [1] 0.7101778</code></pre>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="parametrica.html#cb71-1" tabindex="-1"></a><span class="co"># IC (1-alpha) para sigma1^2/sigma2^2</span></span>
+<span id="cb71-2"><a href="parametrica.html#cb71-2" tabindex="-1"></a>li_F <span class="ot">&lt;-</span> F_calc <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">/</span> <span class="fu">qf</span>(<span class="dv">1</span> <span class="sc">-</span> alpha <span class="sc">/</span> <span class="dv">2</span>, v1, v2))</span>
+<span id="cb71-3"><a href="parametrica.html#cb71-3" tabindex="-1"></a>ls_F <span class="ot">&lt;-</span> F_calc <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">/</span> <span class="fu">qf</span>(alpha <span class="sc">/</span> <span class="dv">2</span>, v1, v2))</span>
+<span id="cb71-4"><a href="parametrica.html#cb71-4" tabindex="-1"></a><span class="fu">c</span>(li_F, ls_F)</span></code></pre></div>
+<pre><code>## [1] 0.6242897 1.3789878</code></pre>
+<p>El resultado manual (<strong>F = 0.9278, p = 0.7102</strong>, IC (0.624, 1.379)) coincide
+exactamente con la salida de <code>var.test()</code>. <strong>Conclusión:</strong> no hay diferencia
+significativa de varianzas, así que se puede usar el t-test clásico con
+varianzas iguales en lugar de la corrección de Welch.</p>
+</div>
+</div>
+<div id="diferencia-de-medias-t-de-student" class="section level3 hasAnchor" number="2.1.4">
+<h3><span class="header-section-number">2.1.4</span> Diferencia de medias: t de Student<a href="parametrica.html#diferencia-de-medias-t-de-student" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="parametrica.html#cb73-1" tabindex="-1"></a><span class="fu">t.test</span>(<span class="at">x =</span> dfs, <span class="at">y =</span> dfd, <span class="at">var.equal =</span> <span class="cn">TRUE</span>, <span class="at">paired =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## 
+##  Two Sample t-test
+## 
+## data:  dfs and dfd
+## t = 31.888, df = 198, p-value &lt; 2.2e-16
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  39.36328 44.55275
+## sample estimates:
+## mean of x mean of y 
+## 120.90406  78.94604</code></pre>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="parametrica.html#cb75-1" tabindex="-1"></a><span class="fu">cohen.d</span>(dfs, dfd, <span class="at">paired =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## 
+## Cohen&#39;s d
+## 
+## d estimate: 4.509702 (large)
+## 95 percent confidence interval:
+##    lower    upper 
+## 3.984821 5.034583</code></pre>
+<div id="verificación-teórica-del-t.test-varianzas-iguales" class="section level4 hasAnchor" number="2.1.4.1">
+<h4><span class="header-section-number">2.1.4.1</span> Verificación teórica del <code>t.test</code> (varianzas iguales)<a href="parametrica.html#verificaci%C3%B3n-te%C3%B3rica-del-t.test-varianzas-iguales" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Con varianzas iguales, el estadístico usa la <strong>varianza combinada (pooled)</strong>:</p>
+<p><span class="math display">\[S_p^2 = \frac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1+n_2-2}, \qquad
+t = \frac{\bar{x}_1 - \bar{x}_2}{\sqrt{S_p^2\left(\frac{1}{n_1}+\frac{1}{n_2}\right)}}
+\ \sim\ t_{(n_1+n_2-2)}\]</span></p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="parametrica.html#cb77-1" tabindex="-1"></a>xbar1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(dfs)</span>
+<span id="cb77-2"><a href="parametrica.html#cb77-2" tabindex="-1"></a>xbar2 <span class="ot">&lt;-</span> <span class="fu">mean</span>(dfd)</span>
+<span id="cb77-3"><a href="parametrica.html#cb77-3" tabindex="-1"></a>s1_2 <span class="ot">&lt;-</span> <span class="fu">var</span>(dfs)</span>
+<span id="cb77-4"><a href="parametrica.html#cb77-4" tabindex="-1"></a>s2_2 <span class="ot">&lt;-</span> <span class="fu">var</span>(dfd)</span>
+<span id="cb77-5"><a href="parametrica.html#cb77-5" tabindex="-1"></a></span>
+<span id="cb77-6"><a href="parametrica.html#cb77-6" tabindex="-1"></a>sp2 <span class="ot">&lt;-</span> ((n1 <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> s1_2 <span class="sc">+</span> (n2 <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> s2_2) <span class="sc">/</span> (n1 <span class="sc">+</span> n2 <span class="sc">-</span> <span class="dv">2</span>)</span>
+<span id="cb77-7"><a href="parametrica.html#cb77-7" tabindex="-1"></a>gl <span class="ot">&lt;-</span> n1 <span class="sc">+</span> n2 <span class="sc">-</span> <span class="dv">2</span></span>
+<span id="cb77-8"><a href="parametrica.html#cb77-8" tabindex="-1"></a></span>
+<span id="cb77-9"><a href="parametrica.html#cb77-9" tabindex="-1"></a>t_calc <span class="ot">&lt;-</span> (xbar1 <span class="sc">-</span> xbar2) <span class="sc">/</span> <span class="fu">sqrt</span>(sp2 <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">/</span> n1 <span class="sc">+</span> <span class="dv">1</span> <span class="sc">/</span> n2))</span>
+<span id="cb77-10"><a href="parametrica.html#cb77-10" tabindex="-1"></a>t_calc</span></code></pre></div>
+<pre><code>## [1] 31.88841</code></pre>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="parametrica.html#cb79-1" tabindex="-1"></a>p_valor_t <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pt</span>(<span class="fu">abs</span>(t_calc), gl))</span>
+<span id="cb79-2"><a href="parametrica.html#cb79-2" tabindex="-1"></a>p_valor_t</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="parametrica.html#cb81-1" tabindex="-1"></a>t_crit <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> alpha <span class="sc">/</span> <span class="dv">2</span>, gl)</span>
+<span id="cb81-2"><a href="parametrica.html#cb81-2" tabindex="-1"></a>li_t <span class="ot">&lt;-</span> (xbar1 <span class="sc">-</span> xbar2) <span class="sc">-</span> t_crit <span class="sc">*</span> <span class="fu">sqrt</span>(sp2 <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">/</span> n1 <span class="sc">+</span> <span class="dv">1</span> <span class="sc">/</span> n2))</span>
+<span id="cb81-3"><a href="parametrica.html#cb81-3" tabindex="-1"></a>ls_t <span class="ot">&lt;-</span> (xbar1 <span class="sc">-</span> xbar2) <span class="sc">+</span> t_crit <span class="sc">*</span> <span class="fu">sqrt</span>(sp2 <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">/</span> n1 <span class="sc">+</span> <span class="dv">1</span> <span class="sc">/</span> n2))</span>
+<span id="cb81-4"><a href="parametrica.html#cb81-4" tabindex="-1"></a><span class="fu">c</span>(li_t, ls_t)</span></code></pre></div>
+<pre><code>## [1] 39.36328 44.55275</code></pre>
+<p>El cálculo a mano da <strong>t = 31.888, p ≈ 0</strong>, IC (39.36, 44.55), idéntico a
+<code>t.test(..., var.equal = TRUE)</code>.</p>
+</div>
+<div id="aproximación-con-la-distribución-normal-z" class="section level4 hasAnchor" number="2.1.4.2">
+<h4><span class="header-section-number">2.1.4.2</span> Aproximación con la distribución normal (Z)<a href="parametrica.html#aproximaci%C3%B3n-con-la-distribuci%C3%B3n-normal-z" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Como <span class="math inline">\(n_1 = n_2 = 100 \ge 30\)</span>, por el Teorema del Límite Central se puede
+aproximar el contraste con <code>z</code> en vez de <code>t</code>, sin necesidad de varianza
+combinada:</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="parametrica.html#cb83-1" tabindex="-1"></a>se_z <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(s1_2 <span class="sc">/</span> n1 <span class="sc">+</span> s2_2 <span class="sc">/</span> n2)</span>
+<span id="cb83-2"><a href="parametrica.html#cb83-2" tabindex="-1"></a>z_calc <span class="ot">&lt;-</span> (xbar1 <span class="sc">-</span> xbar2) <span class="sc">/</span> se_z</span>
+<span id="cb83-3"><a href="parametrica.html#cb83-3" tabindex="-1"></a>z_calc</span></code></pre></div>
+<pre><code>## [1] 31.88841</code></pre>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="parametrica.html#cb85-1" tabindex="-1"></a>p_valor_z <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fu">abs</span>(z_calc)))</span>
+<span id="cb85-2"><a href="parametrica.html#cb85-2" tabindex="-1"></a>p_valor_z</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="parametrica.html#cb87-1" tabindex="-1"></a>z_crit <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="dv">1</span> <span class="sc">-</span> alpha <span class="sc">/</span> <span class="dv">2</span>)</span>
+<span id="cb87-2"><a href="parametrica.html#cb87-2" tabindex="-1"></a>li_z <span class="ot">&lt;-</span> (xbar1 <span class="sc">-</span> xbar2) <span class="sc">-</span> z_crit <span class="sc">*</span> se_z</span>
+<span id="cb87-3"><a href="parametrica.html#cb87-3" tabindex="-1"></a>ls_z <span class="ot">&lt;-</span> (xbar1 <span class="sc">-</span> xbar2) <span class="sc">+</span> z_crit <span class="sc">*</span> se_z</span>
+<span id="cb87-4"><a href="parametrica.html#cb87-4" tabindex="-1"></a><span class="fu">c</span>(li_z, ls_z)</span></code></pre></div>
+<pre><code>## [1] 39.37914 44.53689</code></pre>
+<p>El resultado (<strong>z = 31.888, p ≈ 0</strong>, IC (39.38, 44.54)) es prácticamente igual
+al obtenido con <code>t</code>, tal como se espera cuando las muestras son grandes: la t
+de Student converge a la normal cuando los grados de libertad crecen.</p>
+</div>
+</div>
+</div>
+<div id="precio-según-tipo-de-cuenta-varianzas-desiguales-welch" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Precio según tipo de cuenta: varianzas desiguales (Welch)<a href="parametrica.html#precio-seg%C3%BAn-tipo-de-cuenta-varianzas-desiguales-welch" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Ahora usamos <code>data/datos_economia.xlsx</code>, que compara el precio de la cuenta
+entre dos tipos: <code>Inversion</code> y <code>Ganancia</code> (n = 100 cada uno).</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="parametrica.html#cb89-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;data/datos_economia.xlsx&quot;</span>)</span>
+<span id="cb89-2"><a href="parametrica.html#cb89-2" tabindex="-1"></a>df<span class="sc">$</span><span class="st">`</span><span class="at">Tipo de cuenta</span><span class="st">`</span> <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span><span class="st">`</span><span class="at">Tipo de cuenta</span><span class="st">`</span>)</span>
+<span id="cb89-3"><a href="parametrica.html#cb89-3" tabindex="-1"></a></span>
+<span id="cb89-4"><a href="parametrica.html#cb89-4" tabindex="-1"></a>dfi <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb89-5"><a href="parametrica.html#cb89-5" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">Tipo de cuenta</span><span class="st">`</span> <span class="sc">==</span> <span class="st">&#39;Inversion&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb89-6"><a href="parametrica.html#cb89-6" tabindex="-1"></a>  <span class="fu">pull</span>(Precio)</span>
+<span id="cb89-7"><a href="parametrica.html#cb89-7" tabindex="-1"></a></span>
+<span id="cb89-8"><a href="parametrica.html#cb89-8" tabindex="-1"></a>dfg <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb89-9"><a href="parametrica.html#cb89-9" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">Tipo de cuenta</span><span class="st">`</span> <span class="sc">==</span> <span class="st">&#39;Ganancia&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb89-10"><a href="parametrica.html#cb89-10" tabindex="-1"></a>  <span class="fu">pull</span>(Precio)</span></code></pre></div>
+<div id="análisis-exploratorio-1" class="section level3 hasAnchor" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Análisis exploratorio<a href="parametrica.html#an%C3%A1lisis-exploratorio-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="parametrica.html#cb90-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb90-2"><a href="parametrica.html#cb90-2" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">Tipo de cuenta</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb90-3"><a href="parametrica.html#cb90-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">length</span>(Precio),</span>
+<span id="cb90-4"><a href="parametrica.html#cb90-4" tabindex="-1"></a>            <span class="at">prom =</span> <span class="fu">mean</span>(Precio),</span>
+<span id="cb90-5"><a href="parametrica.html#cb90-5" tabindex="-1"></a>            <span class="at">ds =</span> <span class="fu">sd</span>(Precio),</span>
+<span id="cb90-6"><a href="parametrica.html#cb90-6" tabindex="-1"></a>            <span class="at">mediana =</span> <span class="fu">median</span>(Precio),</span>
+<span id="cb90-7"><a href="parametrica.html#cb90-7" tabindex="-1"></a>            <span class="at">RIC =</span> <span class="fu">IQR</span>(Precio),</span>
+<span id="cb90-8"><a href="parametrica.html#cb90-8" tabindex="-1"></a>            <span class="at">min =</span> <span class="fu">min</span>(Precio),</span>
+<span id="cb90-9"><a href="parametrica.html#cb90-9" tabindex="-1"></a>            <span class="at">max =</span> <span class="fu">max</span>(Precio))</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 8
+##   `Tipo de cuenta`     n     prom      ds  mediana      RIC      min      max
+##   &lt;fct&gt;            &lt;int&gt;    &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+## 1 Ganancia           100  778491. 193397.  754834.  253790.  389351. 1448208.
+## 2 Inversion          100 5090406. 912816. 5061756. 1185673. 2690831. 7187333.</code></pre>
+</div>
+<div id="supuesto-de-normalidad-1" class="section level3 hasAnchor" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Supuesto de normalidad<a href="parametrica.html#supuesto-de-normalidad-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="parametrica.html#cb92-1" tabindex="-1"></a><span class="fu">ks.test</span>(<span class="fu">scale</span>(dfi), <span class="st">&#39;pnorm&#39;</span>)</span></code></pre></div>
+<pre><code>## 
+##  Asymptotic one-sample Kolmogorov-Smirnov test
+## 
+## data:  scale(dfi)
+## D = 0.058097, p-value = 0.8884
+## alternative hypothesis: two-sided</code></pre>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="parametrica.html#cb94-1" tabindex="-1"></a><span class="fu">ks.test</span>(<span class="fu">scale</span>(dfg), <span class="st">&#39;pnorm&#39;</span>)</span></code></pre></div>
+<pre><code>## 
+##  Asymptotic one-sample Kolmogorov-Smirnov test
+## 
+## data:  scale(dfg)
+## D = 0.057927, p-value = 0.8905
+## alternative hypothesis: two-sided</code></pre>
+</div>
+<div id="supuesto-de-homocedasticidad-tres-formas-de-probarlo" class="section level3 hasAnchor" number="2.2.3">
+<h3><span class="header-section-number">2.2.3</span> Supuesto de homocedasticidad: tres formas de probarlo<a href="parametrica.html#supuesto-de-homocedasticidad-tres-formas-de-probarlo" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="parametrica.html#cb96-1" tabindex="-1"></a><span class="fu">var.test</span>(dfi, dfg)</span></code></pre></div>
+<pre><code>## 
+##  F test to compare two variances
+## 
+## data:  dfi and dfg
+## F = 22.277, num df = 99, denom df = 99, p-value &lt; 2.2e-16
+## alternative hypothesis: true ratio of variances is not equal to 1
+## 95 percent confidence interval:
+##  14.9892 33.1095
+## sample estimates:
+## ratio of variances 
+##           22.27745</code></pre>
+<p><code>H0: sigma_inversion^2 = sigma_ganancia^2</code> frente a <code>H1:</code> varianzas distintas.
+Además de <code>var.test</code>, existen tres pruebas clásicas de homogeneidad de
+varianzas para dos o más grupos, que difieren en cómo construyen el
+estadístico y en su robustez frente a la falta de normalidad:</p>
+<table>
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Prueba</th>
+<th>Cómo funciona</th>
+<th>Distribución del estadístico</th>
+<th>Robustez a no-normalidad</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Bartlett</strong></td>
+<td>Razón de verosimilitudes entre la varianza combinada y las varianzas de cada grupo</td>
+<td><span class="math inline">\(\chi^2\)</span> con <span class="math inline">\(k-1\)</span> g.l.</td>
+<td>Baja — muy sensible; si los datos no son normales puede rechazar H0 aunque las varianzas sean iguales</td>
+</tr>
+<tr class="even">
+<td><strong>Levene</strong></td>
+<td>ANOVA de un factor sobre las desviaciones absolutas de cada dato respecto a la media/mediana de su grupo</td>
+<td>F de Fisher-Snedecor con <span class="math inline">\((k-1, N-k)\)</span> g.l.</td>
+<td>Media-alta — al centrar en la mediana es robusta a asimetría y colas pesadas</td>
+</tr>
+<tr class="odd">
+<td><strong>Fligner-Killeen</strong></td>
+<td>No paramétrica: rankea las desviaciones absolutas respecto a la mediana</td>
+<td><span class="math inline">\(\chi^2\)</span> con <span class="math inline">\(k-1\)</span> g.l.</td>
+<td>Alta — la más robusta de las tres, ideal si hay atípicos o no hay normalidad</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="parametrica.html#cb98-1" tabindex="-1"></a><span class="co"># Bartlett: se basa en la razón de verosimilitudes entre la varianza combinada</span></span>
+<span id="cb98-2"><a href="parametrica.html#cb98-2" tabindex="-1"></a><span class="co"># y las varianzas de cada grupo. Muy sensible al incumplimiento de normalidad.</span></span>
+<span id="cb98-3"><a href="parametrica.html#cb98-3" tabindex="-1"></a><span class="fu">bartlett.test</span>(Precio <span class="sc">~</span> <span class="st">`</span><span class="at">Tipo de cuenta</span><span class="st">`</span>, <span class="at">data =</span> df)</span></code></pre></div>
+<pre><code>## 
+##  Bartlett test of homogeneity of variances
+## 
+## data:  Precio by Tipo de cuenta
+## Bartlett&#39;s K-squared = 177.81, df = 1, p-value &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="parametrica.html#cb100-1" tabindex="-1"></a><span class="co"># Levene: usa las desviaciones absolutas de cada observación respecto a la</span></span>
+<span id="cb100-2"><a href="parametrica.html#cb100-2" tabindex="-1"></a><span class="co"># mediana de su grupo y aplica un ANOVA de un factor sobre esas desviaciones.</span></span>
+<span id="cb100-3"><a href="parametrica.html#cb100-3" tabindex="-1"></a><span class="fu">leveneTest</span>(Precio <span class="sc">~</span> <span class="st">`</span><span class="at">Tipo de cuenta</span><span class="st">`</span>, <span class="at">data =</span> df, <span class="at">center =</span> <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = &quot;median&quot;)
+##        Df F value    Pr(&gt;F)    
+## group   1   107.2 &lt; 2.2e-16 ***
+##       198                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="parametrica.html#cb102-1" tabindex="-1"></a><span class="co"># Fligner-Killeen: prueba no paramétrica basada en los rangos de las</span></span>
+<span id="cb102-2"><a href="parametrica.html#cb102-2" tabindex="-1"></a><span class="co"># desviaciones absolutas respecto a la mediana de cada grupo.</span></span>
+<span id="cb102-3"><a href="parametrica.html#cb102-3" tabindex="-1"></a><span class="fu">fligner.test</span>(Precio <span class="sc">~</span> <span class="st">`</span><span class="at">Tipo de cuenta</span><span class="st">`</span>, <span class="at">data =</span> df)</span></code></pre></div>
+<pre><code>## 
+##  Fligner-Killeen test of homogeneity of variances
+## 
+## data:  Precio by Tipo de cuenta
+## Fligner-Killeen:med chi-squared = 82.798, df = 1, p-value &lt; 2.2e-16</code></pre>
+<p><strong>Resultado:</strong> las tres pruebas rechazan <span class="math inline">\(H_0\)</span> (p &lt; 0.001), coincidiendo con
+<code>var.test()</code> (F = 22.28, p &lt; 0.001). <strong>Conclusión:</strong> las varianzas de
+<code>Precio</code> son claramente distintas entre <code>Inversion</code> y <code>Ganancia</code>, por lo que
+se justifica usar el <strong>t-test de Welch</strong> (<code>var.equal = FALSE</code>) en vez del
+t-test clásico.</p>
+</div>
+<div id="diferencia-de-medias-t-de-welch" class="section level3 hasAnchor" number="2.2.4">
+<h3><span class="header-section-number">2.2.4</span> Diferencia de medias: t de Welch<a href="parametrica.html#diferencia-de-medias-t-de-welch" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="parametrica.html#cb104-1" tabindex="-1"></a><span class="fu">t.test</span>(<span class="at">x =</span> dfi, <span class="at">y =</span> dfg, <span class="at">var.equal =</span> <span class="cn">FALSE</span>, <span class="at">paired =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  dfi and dfg
+## t = 46.212, df = 107.87, p-value &lt; 2.2e-16
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  4126960 4496870
+## sample estimates:
+## mean of x mean of y 
+## 5090405.9  778490.6</code></pre>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="parametrica.html#cb106-1" tabindex="-1"></a><span class="fu">cohen.d</span>(dfi, dfg)</span></code></pre></div>
+<pre><code>## 
+## Cohen&#39;s d
+## 
+## d estimate: 6.535323 (large)
+## 95 percent confidence interval:
+##    lower    upper 
+## 5.833174 7.237472</code></pre>
+</div>
+</div>
+<div id="datos-pareados-intervención-educativa" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Datos pareados: intervención educativa<a href="parametrica.html#datos-pareados-intervenci%C3%B3n-educativa" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Diez estudiantes fueron evaluados antes y después de una intervención
+educativa. Al tratarse del mismo individuo medido dos veces, las
+observaciones están <strong>pareadas</strong>, y eso cambia la prueba que corresponde
+aplicar.</p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="parametrica.html#cb108-1" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb108-2"><a href="parametrica.html#cb108-2" tabindex="-1"></a>  <span class="at">estudiante =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>),</span>
+<span id="cb108-3"><a href="parametrica.html#cb108-3" tabindex="-1"></a>  <span class="at">antes =</span> <span class="fu">c</span>(<span class="fl">12.9</span>, <span class="fl">13.5</span>, <span class="fl">12.8</span>, <span class="fl">15.6</span>, <span class="fl">17.2</span>, <span class="fl">19.2</span>, <span class="fl">12.6</span>, <span class="fl">15.3</span>, <span class="fl">14.4</span>, <span class="fl">11.3</span>),</span>
+<span id="cb108-4"><a href="parametrica.html#cb108-4" tabindex="-1"></a>  <span class="at">despues =</span> <span class="fu">c</span>(<span class="fl">12.7</span>, <span class="fl">13.6</span>, <span class="fl">12.0</span>, <span class="fl">15.2</span>, <span class="fl">16.8</span>, <span class="fl">20.0</span>, <span class="fl">12.0</span>, <span class="fl">15.9</span>, <span class="fl">16.0</span>, <span class="fl">11.1</span>)</span>
+<span id="cb108-5"><a href="parametrica.html#cb108-5" tabindex="-1"></a>)</span></code></pre></div>
+<div id="supuesto-de-normalidad-2" class="section level3 hasAnchor" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> Supuesto de normalidad<a href="parametrica.html#supuesto-de-normalidad-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="parametrica.html#cb109-1" tabindex="-1"></a><span class="fu">shapiro.test</span>(datos<span class="sc">$</span>antes)</span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  datos$antes
+## W = 0.94444, p-value = 0.6033</code></pre>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="parametrica.html#cb111-1" tabindex="-1"></a><span class="fu">shapiro.test</span>(datos<span class="sc">$</span>despues)</span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  datos$despues
+## W = 0.93638, p-value = 0.5135</code></pre>
+</div>
+<div id="diferencia-de-medias-t-pareado" class="section level3 hasAnchor" number="2.3.2">
+<h3><span class="header-section-number">2.3.2</span> Diferencia de medias: t pareado<a href="parametrica.html#diferencia-de-medias-t-pareado" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="parametrica.html#cb113-1" tabindex="-1"></a><span class="fu">t.test</span>(<span class="at">x =</span> datos<span class="sc">$</span>despues, <span class="at">y =</span> datos<span class="sc">$</span>antes, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## 
+##  Paired t-test
+## 
+## data:  datos$despues and datos$antes
+## t = 0.21331, df = 9, p-value = 0.8358
+## alternative hypothesis: true mean difference is not equal to 0
+## 95 percent confidence interval:
+##  -0.4802549  0.5802549
+## sample estimates:
+## mean difference 
+##            0.05</code></pre>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="parametrica.html#cb115-1" tabindex="-1"></a><span class="fu">cohen.d</span>(datos<span class="sc">$</span>despues, datos<span class="sc">$</span>antes, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## 
+## Cohen&#39;s d
+## 
+## d estimate: 0.0169815 (negligible)
+## 95 percent confidence interval:
+##      lower      upper 
+## -0.1502851  0.1842481</code></pre>
+</div>
+</div>
+<div id="estadística-no-paramétrica-peso-al-nacer-según-hábito-de-fumar" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Estadística no paramétrica: peso al nacer según hábito de fumar<a href="parametrica.html#estad%C3%ADstica-no-param%C3%A9trica-peso-al-nacer-seg%C3%BAn-h%C3%A1bito-de-fumar" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Usamos el conjunto <code>births</code> del paquete <code>openintro</code> para caracterizar el peso
+del bebé al nacer según si la madre fuma o no.</p>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="parametrica.html#cb117-1" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&#39;births&#39;</span>)</span>
+<span id="cb117-2"><a href="parametrica.html#cb117-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> births</span></code></pre></div>
+<div id="análisis-exploratorio-2" class="section level3 hasAnchor" number="2.4.1">
+<h3><span class="header-section-number">2.4.1</span> Análisis exploratorio<a href="parametrica.html#an%C3%A1lisis-exploratorio-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="parametrica.html#cb118-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb118-2"><a href="parametrica.html#cb118-2" tabindex="-1"></a>  <span class="fu">group_by</span>(smoke) <span class="sc">%&gt;%</span></span>
+<span id="cb118-3"><a href="parametrica.html#cb118-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">length</span>(smoke),</span>
+<span id="cb118-4"><a href="parametrica.html#cb118-4" tabindex="-1"></a>            <span class="at">prom =</span> <span class="fu">mean</span>(weight),</span>
+<span id="cb118-5"><a href="parametrica.html#cb118-5" tabindex="-1"></a>            <span class="at">ds =</span> <span class="fu">sd</span>(weight),</span>
+<span id="cb118-6"><a href="parametrica.html#cb118-6" tabindex="-1"></a>            <span class="at">mediana =</span> <span class="fu">median</span>(weight),</span>
+<span id="cb118-7"><a href="parametrica.html#cb118-7" tabindex="-1"></a>            <span class="at">RIC =</span> <span class="fu">IQR</span>(weight),</span>
+<span id="cb118-8"><a href="parametrica.html#cb118-8" tabindex="-1"></a>            <span class="at">min =</span> <span class="fu">min</span>(weight),</span>
+<span id="cb118-9"><a href="parametrica.html#cb118-9" tabindex="-1"></a>            <span class="at">max =</span> <span class="fu">max</span>(weight))</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 8
+##   smoke         n  prom    ds mediana   RIC   min   max
+##   &lt;fct&gt;     &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 nonsmoker   100  7.18  1.43    7.44  1.36  1.63 10.1 
+## 2 smoker       50  6.78  1.60    6.97  1.59  1.69  9.13</code></pre>
+</div>
+<div id="supuesto-de-normalidad-3" class="section level3 hasAnchor" number="2.4.2">
+<h3><span class="header-section-number">2.4.2</span> Supuesto de normalidad<a href="parametrica.html#supuesto-de-normalidad-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Comparamos tres pruebas de normalidad a la vez: Kolmogorov-Smirnov,
+Shapiro-Wilk y Lilliefors.</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="parametrica.html#cb120-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb120-2"><a href="parametrica.html#cb120-2" tabindex="-1"></a>  <span class="fu">group_by</span>(smoke) <span class="sc">%&gt;%</span></span>
+<span id="cb120-3"><a href="parametrica.html#cb120-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">length</span>(weight),</span>
+<span id="cb120-4"><a href="parametrica.html#cb120-4" tabindex="-1"></a>            <span class="at">est_ks =</span> <span class="fu">ks.test</span>(<span class="fu">scale</span>(weight), <span class="st">&#39;pnorm&#39;</span>)<span class="sc">$</span>statistic,</span>
+<span id="cb120-5"><a href="parametrica.html#cb120-5" tabindex="-1"></a>            <span class="at">p_ks =</span> <span class="fu">ks.test</span>(<span class="fu">scale</span>(weight), <span class="st">&#39;pnorm&#39;</span>)<span class="sc">$</span>p.value,</span>
+<span id="cb120-6"><a href="parametrica.html#cb120-6" tabindex="-1"></a>            <span class="at">est_sw =</span> <span class="fu">shapiro.test</span>(weight)<span class="sc">$</span>statistic,</span>
+<span id="cb120-7"><a href="parametrica.html#cb120-7" tabindex="-1"></a>            <span class="at">p_sw =</span> <span class="fu">shapiro.test</span>(weight)<span class="sc">$</span>p.value,</span>
+<span id="cb120-8"><a href="parametrica.html#cb120-8" tabindex="-1"></a>            <span class="at">est_l =</span> <span class="fu">lillie.test</span>(weight)<span class="sc">$</span>statistic,</span>
+<span id="cb120-9"><a href="parametrica.html#cb120-9" tabindex="-1"></a>            <span class="at">p_l =</span> <span class="fu">lillie.test</span>(weight)<span class="sc">$</span>p.value)</span></code></pre></div>
+<pre><code>## Warning: There were 4 warnings in `summarise()`.
+## The first warning was:
+## ℹ In argument: `est_ks = ks.test(scale(weight), &quot;pnorm&quot;)$statistic`.
+## ℹ In group 1: `smoke = nonsmoker`.
+## Caused by warning in `ks.test.default()`:
+## ! ties should not be present for the one-sample Kolmogorov-Smirnov test
+## ℹ Run `dplyr::last_dplyr_warnings()` to see the 3 remaining warnings.</code></pre>
+<pre><code>## # A tibble: 2 × 8
+##   smoke         n est_ks   p_ks est_sw      p_sw est_l      p_l
+##   &lt;fct&gt;     &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
+## 1 nonsmoker   100  0.132 0.0604  0.924 0.0000223 0.132 0.000184
+## 2 smoker       50  0.125 0.413   0.895 0.000328  0.125 0.0484</code></pre>
+<p>Al menos uno de los grupos se aleja de la normalidad, así que conviene usar
+una alternativa no paramétrica para comparar los dos grupos.</p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="parametrica.html#cb123-1" tabindex="-1"></a><span class="fu">leveneTest</span>(weight <span class="sc">~</span> smoke, <span class="at">data =</span> df, <span class="at">center =</span> median)</span></code></pre></div>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
+##        Df F value Pr(&gt;F)
+## group   1  0.4442 0.5062
+##       148</code></pre>
+</div>
+<div id="corrección-de-un-error-y-prueba-de-wilcoxonmann-whitney" class="section level3 hasAnchor" number="2.4.3">
+<h3><span class="header-section-number">2.4.3</span> Corrección de un error y prueba de Wilcoxon/Mann-Whitney<a href="parametrica.html#correcci%C3%B3n-de-un-error-y-prueba-de-wilcoxonmann-whitney" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><code>wilcox.test(weight ~ smoke, data = df, paired = FALSE)</code> falla porque el
+<strong>método fórmula</strong> de <code>wilcox.test</code> no admite el argumento <code>paired</code> (solo el
+método <code>x, y</code> lo admite). Se corrige extrayendo los vectores directamente:</p>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="parametrica.html#cb125-1" tabindex="-1"></a><span class="fu">wilcox.test</span>(<span class="at">x =</span> df<span class="sc">$</span>weight[df<span class="sc">$</span>smoke <span class="sc">==</span> <span class="st">&quot;smoker&quot;</span>],</span>
+<span id="cb125-2"><a href="parametrica.html#cb125-2" tabindex="-1"></a>            <span class="at">y =</span> df<span class="sc">$</span>weight[df<span class="sc">$</span>smoke <span class="sc">==</span> <span class="st">&quot;nonsmoker&quot;</span>])</span></code></pre></div>
+<pre><code>## 
+##  Wilcoxon rank sum test with continuity correction
+## 
+## data:  df$weight[df$smoke == &quot;smoker&quot;] and df$weight[df$smoke == &quot;nonsmoker&quot;]
+## W = 2121, p-value = 0.1312
+## alternative hypothesis: true location shift is not equal to 0</code></pre>
+<p><strong>Resultado:</strong> W = 2121, p = 0.1312. No hay diferencia significativa en el
+peso al nacer entre madres fumadoras y no fumadoras.</p>
+</div>
+</div>
+<div id="homogeneidad-de-varianzas-con-más-de-dos-grupos-tiempo-de-resolución-en-tres-escuelas" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Homogeneidad de varianzas con más de dos grupos: tiempo de resolución en tres escuelas<a href="parametrica.html#homogeneidad-de-varianzas-con-m%C3%A1s-de-dos-grupos-tiempo-de-resoluci%C3%B3n-en-tres-escuelas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Siete estudiantes de cada una de tres escuelas (A, B, C) resolvieron un
+ejercicio de álgebra; se registró el tiempo, en minutos, que tardó cada uno.
+Con <span class="math inline">\(k = 3\)</span> grupos aplicamos de nuevo las tres pruebas de homogeneidad de
+varianzas, como paso previo a un ANOVA de un factor.</p>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="parametrica.html#cb127-1" tabindex="-1"></a>estudiantes <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb127-2"><a href="parametrica.html#cb127-2" tabindex="-1"></a>  <span class="at">escuela =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>), <span class="at">each =</span> <span class="dv">7</span>),</span>
+<span id="cb127-3"><a href="parametrica.html#cb127-3" tabindex="-1"></a>  <span class="at">tiempo =</span> <span class="fu">c</span>(<span class="dv">17</span>, <span class="dv">21</span>, <span class="dv">25</span>, <span class="dv">16</span>, <span class="dv">19</span>, <span class="dv">22</span>, <span class="dv">18</span>,   <span class="co"># Escuela A</span></span>
+<span id="cb127-4"><a href="parametrica.html#cb127-4" tabindex="-1"></a>             <span class="dv">24</span>, <span class="dv">18</span>, <span class="dv">19</span>, <span class="dv">22</span>, <span class="dv">23</span>, <span class="dv">20</span>, <span class="dv">21</span>,   <span class="co"># Escuela B</span></span>
+<span id="cb127-5"><a href="parametrica.html#cb127-5" tabindex="-1"></a>             <span class="dv">25</span>, <span class="dv">24</span>, <span class="dv">25</span>, <span class="dv">21</span>, <span class="dv">24</span>, <span class="dv">28</span>, <span class="dv">19</span>)   <span class="co"># Escuela C</span></span>
+<span id="cb127-6"><a href="parametrica.html#cb127-6" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="parametrica.html#cb128-1" tabindex="-1"></a><span class="fu">bartlett.test</span>(tiempo <span class="sc">~</span> escuela, <span class="at">data =</span> estudiantes)</span></code></pre></div>
+<pre><code>## 
+##  Bartlett test of homogeneity of variances
+## 
+## data:  tiempo by escuela
+## Bartlett&#39;s K-squared = 0.823, df = 2, p-value = 0.6627</code></pre>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="parametrica.html#cb130-1" tabindex="-1"></a><span class="fu">leveneTest</span>(tiempo <span class="sc">~</span> escuela, <span class="at">data =</span> estudiantes, <span class="at">center =</span> <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning in leveneTest.default(y = y, group = group, ...): group coerced to factor.</code></pre>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = &quot;median&quot;)
+##       Df F value Pr(&gt;F)
+## group  2  0.3065 0.7398
+##       18</code></pre>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="parametrica.html#cb133-1" tabindex="-1"></a><span class="fu">fligner.test</span>(tiempo <span class="sc">~</span> escuela, <span class="at">data =</span> estudiantes)</span></code></pre></div>
+<pre><code>## 
+##  Fligner-Killeen test of homogeneity of variances
+## 
+## data:  tiempo by escuela
+## Fligner-Killeen:med chi-squared = 0.63981, df = 2, p-value = 0.7262</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th>Prueba</th>
+<th>Estadístico</th>
+<th>g.l.</th>
+<th>p-valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Bartlett</td>
+<td>K² = 0.823</td>
+<td>2</td>
+<td>0.6627</td>
+</tr>
+<tr class="even">
+<td>Levene (centro = mediana)</td>
+<td>F = 0.3065</td>
+<td>2, 18</td>
+<td>0.7398</td>
+</tr>
+<tr class="odd">
+<td>Fligner-Killeen</td>
+<td>χ² = 0.6398</td>
+<td>2</td>
+<td>0.7262</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Conclusión:</strong> las tres pruebas dan p &gt; 0.05, así que no se rechaza <span class="math inline">\(H_0\)</span>.
+Las varianzas del tiempo de resolución son homogéneas entre las tres
+escuelas, lo que respalda el supuesto de igualdad de varianzas necesario
+para aplicar un ANOVA de un factor sobre estos datos.</p>
+</div>
+<div id="estadística-no-paramétrica-pareada-percepción-de-los-estudiantes" class="section level2 hasAnchor" number="2.6">
+<h2><span class="header-section-number">2.6</span> Estadística no paramétrica pareada: percepción de los estudiantes<a href="parametrica.html#estad%C3%ADstica-no-param%C3%A9trica-pareada-percepci%C3%B3n-de-los-estudiantes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Por último, <code>data/dataQ.tsv</code> recoge la respuesta a una pregunta de
+percepción (<code>Q1</code>) contestada por los mismos estudiantes antes y después de
+un experimento (<code>Pretest</code> / <code>Post-test</code>): de nuevo, datos <strong>pareados</strong>, pero
+esta vez con una variable que no cumple normalidad.</p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="parametrica.html#cb135-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">&quot;data/dataQ.tsv&quot;</span>)</span></code></pre></div>
+<div id="análisis-exploratorio-3" class="section level3 hasAnchor" number="2.6.1">
+<h3><span class="header-section-number">2.6.1</span> Análisis exploratorio<a href="parametrica.html#an%C3%A1lisis-exploratorio-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="parametrica.html#cb136-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb136-2"><a href="parametrica.html#cb136-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Experimento) <span class="sc">%&gt;%</span></span>
+<span id="cb136-3"><a href="parametrica.html#cb136-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">length</span>(Q1),</span>
+<span id="cb136-4"><a href="parametrica.html#cb136-4" tabindex="-1"></a>            <span class="at">prom =</span> <span class="fu">mean</span>(Q1),</span>
+<span id="cb136-5"><a href="parametrica.html#cb136-5" tabindex="-1"></a>            <span class="at">ds =</span> <span class="fu">sd</span>(Q1),</span>
+<span id="cb136-6"><a href="parametrica.html#cb136-6" tabindex="-1"></a>            <span class="at">mediana =</span> <span class="fu">median</span>(Q1),</span>
+<span id="cb136-7"><a href="parametrica.html#cb136-7" tabindex="-1"></a>            <span class="at">RIC =</span> <span class="fu">IQR</span>(Q1),</span>
+<span id="cb136-8"><a href="parametrica.html#cb136-8" tabindex="-1"></a>            <span class="at">min =</span> <span class="fu">min</span>(Q1),</span>
+<span id="cb136-9"><a href="parametrica.html#cb136-9" tabindex="-1"></a>            <span class="at">max =</span> <span class="fu">max</span>(Q1))</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 8
+##   Experimento     n  prom    ds mediana   RIC   min   max
+##   &lt;chr&gt;       &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;int&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt;
+## 1 Post-test      49  4.63 0.528       5     1     3     5
+## 2 Pretest        49  2.57 0.764       2     1     1     4</code></pre>
+</div>
+<div id="supuesto-de-normalidad-4" class="section level3 hasAnchor" number="2.6.2">
+<h3><span class="header-section-number">2.6.2</span> Supuesto de normalidad<a href="parametrica.html#supuesto-de-normalidad-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="parametrica.html#cb138-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb138-2"><a href="parametrica.html#cb138-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Experimento) <span class="sc">%&gt;%</span></span>
+<span id="cb138-3"><a href="parametrica.html#cb138-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">length</span>(Q1),</span>
+<span id="cb138-4"><a href="parametrica.html#cb138-4" tabindex="-1"></a>            <span class="at">est_ks =</span> <span class="fu">ks.test</span>(<span class="fu">scale</span>(Q1), <span class="st">&#39;pnorm&#39;</span>)<span class="sc">$</span>statistic,</span>
+<span id="cb138-5"><a href="parametrica.html#cb138-5" tabindex="-1"></a>            <span class="at">p_ks =</span> <span class="fu">ks.test</span>(<span class="fu">scale</span>(Q1), <span class="st">&#39;pnorm&#39;</span>)<span class="sc">$</span>p.value,</span>
+<span id="cb138-6"><a href="parametrica.html#cb138-6" tabindex="-1"></a>            <span class="at">est_sw =</span> <span class="fu">shapiro.test</span>(Q1)<span class="sc">$</span>statistic,</span>
+<span id="cb138-7"><a href="parametrica.html#cb138-7" tabindex="-1"></a>            <span class="at">p_sw =</span> <span class="fu">shapiro.test</span>(Q1)<span class="sc">$</span>p.value,</span>
+<span id="cb138-8"><a href="parametrica.html#cb138-8" tabindex="-1"></a>            <span class="at">est_l =</span> <span class="fu">lillie.test</span>(Q1)<span class="sc">$</span>statistic,</span>
+<span id="cb138-9"><a href="parametrica.html#cb138-9" tabindex="-1"></a>            <span class="at">p_l =</span> <span class="fu">lillie.test</span>(Q1)<span class="sc">$</span>p.value)</span></code></pre></div>
+<pre><code>## Warning: There were 4 warnings in `summarise()`.
+## The first warning was:
+## ℹ In argument: `est_ks = ks.test(scale(Q1), &quot;pnorm&quot;)$statistic`.
+## ℹ In group 1: `Experimento = &quot;Post-test&quot;`.
+## Caused by warning in `ks.test.default()`:
+## ! ties should not be present for the one-sample Kolmogorov-Smirnov test
+## ℹ Run `dplyr::last_dplyr_warnings()` to see the 3 remaining warnings.</code></pre>
+<pre><code>## # A tibble: 2 × 8
+##   Experimento     n est_ks        p_ks est_sw          p_sw est_l      p_l
+##   &lt;chr&gt;       &lt;int&gt;  &lt;dbl&gt;       &lt;dbl&gt;  &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
+## 1 Post-test      49  0.410 0.000000143  0.645 0.00000000123 0.410 2.43e-23
+## 2 Pretest        49  0.324 0.0000688    0.791 0.000000652   0.324 3.28e-14</code></pre>
+</div>
+<div id="wilcoxon-pareado-y-tamaño-del-efecto" class="section level3 hasAnchor" number="2.6.3">
+<h3><span class="header-section-number">2.6.3</span> Wilcoxon pareado y tamaño del efecto<a href="parametrica.html#wilcoxon-pareado-y-tama%C3%B1o-del-efecto" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="parametrica.html#cb141-1" tabindex="-1"></a>pretestq1 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb141-2"><a href="parametrica.html#cb141-2" tabindex="-1"></a>  <span class="fu">select</span>(Experimento, Q1) <span class="sc">%&gt;%</span></span>
+<span id="cb141-3"><a href="parametrica.html#cb141-3" tabindex="-1"></a>  <span class="fu">filter</span>(Experimento <span class="sc">==</span> <span class="st">&#39;Pretest&#39;</span>)</span>
+<span id="cb141-4"><a href="parametrica.html#cb141-4" tabindex="-1"></a></span>
+<span id="cb141-5"><a href="parametrica.html#cb141-5" tabindex="-1"></a>postestq1 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb141-6"><a href="parametrica.html#cb141-6" tabindex="-1"></a>  <span class="fu">select</span>(Experimento, Q1) <span class="sc">%&gt;%</span></span>
+<span id="cb141-7"><a href="parametrica.html#cb141-7" tabindex="-1"></a>  <span class="fu">filter</span>(Experimento <span class="sc">==</span> <span class="st">&#39;Post-test&#39;</span>)</span>
+<span id="cb141-8"><a href="parametrica.html#cb141-8" tabindex="-1"></a></span>
+<span id="cb141-9"><a href="parametrica.html#cb141-9" tabindex="-1"></a><span class="fu">wilcox.test</span>(<span class="at">x =</span> pretestq1<span class="sc">$</span>Q1, <span class="at">y =</span> postestq1<span class="sc">$</span>Q1, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## 
+##  Wilcoxon signed rank exact test
+## 
+## data:  pretestq1$Q1 and postestq1$Q1
+## V = 0, p-value = 1.421e-14
+## alternative hypothesis: true location shift is not equal to 0</code></pre>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="parametrica.html#cb143-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb143-2"><a href="parametrica.html#cb143-2" tabindex="-1"></a>  <span class="fu">wilcox_effsize</span>(Q1 <span class="sc">~</span> Experimento, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 7
+##   .y.   group1    group2  effsize    n1    n2 magnitude
+## * &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;     &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;ord&gt;    
+## 1 Q1    Post-test Pretest   0.879    49    49 large</code></pre>
+<p>Con una confianza del 95% se concluye que hay diferencias estadísticamente
+significativas en la percepción medida por <code>Q1</code> entre el pretest y el
+post-test.</p>
+</div>
+</div>
+<div id="resumen-del-capítulo" class="section level2 hasAnchor" number="2.7">
+<h2><span class="header-section-number">2.7</span> Resumen del capítulo<a href="parametrica.html#resumen-del-cap%C3%ADtulo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<table>
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Base de datos</th>
+<th>Diseño</th>
+<th>Supuesto de varianzas</th>
+<th>Prueba aplicada</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Presión arterial</td>
+<td>2 grupos independientes</td>
+<td>Iguales (<code>var.test</code> no rechaza)</td>
+<td>t de Student clásico</td>
+</tr>
+<tr class="even">
+<td>Precio por tipo de cuenta</td>
+<td>2 grupos independientes</td>
+<td>Distintas (Bartlett/Levene/Fligner rechazan)</td>
+<td>t de Welch</td>
+</tr>
+<tr class="odd">
+<td>Intervención educativa</td>
+<td>Pareado</td>
+<td>—</td>
+<td>t pareado</td>
+</tr>
+<tr class="even">
+<td>Peso al nacer / tabaquismo</td>
+<td>2 grupos independientes</td>
+<td>No normalidad</td>
+<td>Wilcoxon/Mann-Whitney</td>
+</tr>
+<tr class="odd">
+<td>Tiempo de resolución / 3 escuelas</td>
+<td>3 grupos independientes</td>
+<td>Iguales (paso previo a ANOVA)</td>
+<td>Bartlett, Levene, Fligner-Killeen</td>
+</tr>
+<tr class="even">
+<td>Percepción Q1 (pre/post)</td>
+<td>Pareado, no normal</td>
+<td>—</td>
+<td>Wilcoxon pareado</td>
+</tr>
+</tbody>
+</table>
+<p>El hilo conductor de todo el capítulo es que <strong>la prueba correcta depende de
+los supuestos</strong>, no de la preferencia por un método u otro: primero se
+verifica normalidad y homocedasticidad, y solo después se elige entre la
+prueba paramétrica clásica, su variante robusta (Welch) o su alternativa no
+paramétrica.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="referencias.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/jscszn/libro/edit/main/02-parametrica.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

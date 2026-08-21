@@ -1,3 +1,5 @@
 `r if (knitr:::is_html_output()) '
 # Referencias {-}
 '`
+
+- [Repositorio de referencia: rbook_met_estad](https://cdeoroaguado.github.io/rbook_met_estad/)

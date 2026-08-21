@@ -1,5 +1,5 @@
 ---
-title: "Librito de estadística"
+title: "Libro de estadística"
 author:
   - Jose Castro Zúñiga
   - Jimara Urzola
@@ -11,10 +11,24 @@ bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
 github-repo: jscszn/libro
-description: "Notas de métodos estadísticos: análisis exploratorio del precio de la vivienda en California."
+description: "Notas de métodos estadísticos: análisis exploratorio del precio de la vivienda en California y estadística paramétrica con diversas bases de datos."
 ---
 
 # Contexto del problema {-}
+
+Este librito reúne dos trabajos independientes de la asignatura de métodos
+estadísticos. Cada uno tiene su propia base (o bases) de datos, su propio
+objetivo y se organiza como una parte separada del libro:
+
+- **Trabajo 1 — Análisis exploratorio de datos (EDA)**, capítulo
+  \@ref(intro): estudia el precio de la vivienda en California como variable
+  respuesta **numérica**, usando una sola base de datos.
+- **Trabajo 2 — Estadística paramétrica**, capítulo \@ref(parametrica):
+  aplica pruebas de hipótesis paramétricas (t de Student, Welch, pareado) y
+  no paramétricas (Wilcoxon), junto con sus supuestos de normalidad y
+  homocedasticidad, sobre **varias bases de datos** distintas.
+
+## Trabajo 1: análisis exploratorio con variable respuesta numérica
 
 Los datos que vamos a analizar están relacionados con el precio de las casas en
 el estado de California. Cada fila del conjunto de datos corresponde a un
@@ -35,13 +49,33 @@ Las variables disponibles son:
 | `median_house_value` | **Variable objetivo**: valor mediano de la vivienda (USD) |
 | `ocean_proximity` | Cercanía al océano (variable categórica) |
 
-El objetivo de estas notas es hacer un **análisis exploratorio de datos (EDA)**
+El objetivo de este trabajo es hacer un **análisis exploratorio de datos (EDA)**
 sobre este conjunto: describir las variables, detectar y tratar valores
 faltantes, estudiar la distribución de la variable objetivo y explorar sus
 relaciones con las demás características.
 
 Los datos están en `data/housing.csv` y el análisis se desarrolla en el
 capítulo \@ref(intro).
+
+## Trabajo 2: estadística paramétrica con diversas bases de datos
+
+A diferencia del trabajo anterior, aquí el objetivo no es describir una
+variable respuesta sino **contrastar hipótesis** sobre diferencias de medias
+o medianas entre grupos, verificando en cada caso los supuestos de
+normalidad y homocedasticidad antes de elegir la prueba adecuada. Se usan
+varias bases de datos, cada una pensada para un escenario distinto (dos
+grupos independientes, varianzas desiguales, datos pareados, más de dos
+grupos, o incumplimiento de normalidad):
+
+| Base de datos | Contenido |
+|---|---|
+| `data/datos_medicos.xlsx` | Presión sistólica y diastólica (dos grupos independientes) |
+| `data/datos_economia.xlsx` | Precio según tipo de cuenta, `Inversion` vs `Ganancia` |
+| `births` (paquete `openintro`) | Peso al nacer según hábito de fumar de la madre |
+| `data/dataQ.tsv` | Percepción de estudiantes (pre-test / post-test, datos pareados) |
+
+El desarrollo completo, incluyendo la verificación manual de los teoremas
+detrás de `var.test` y `t.test`, está en el capítulo \@ref(parametrica).
 
 ```{r include=FALSE}
 # genera automáticamente la bibliografía de los paquetes de R usados

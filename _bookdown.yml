@@ -1,5 +1,5 @@
 book_filename: "notasmetodos"
-rmd_files: ["index.Rmd", "01-intro.Rmd", "06-references.Rmd"]
+rmd_files: ["index.Rmd", "01-intro.Rmd", "02-parametrica.Rmd", "06-references.Rmd"]
 language:
   ui:
     chapter_name: "Capítulo "
