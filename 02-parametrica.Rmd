@@ -6,14 +6,7 @@ En el capítulo anterior hicimos análisis exploratorio de datos sobre una únic
 base de datos (viviendas de California) con el fin de describir una variable
 respuesta numérica y sus relaciones con otras características. En este
 capítulo cambiamos de objetivo: en lugar de explorar, **contrastamos
-hipótesis**. Se aplican pruebas de estadística paramétrica (y su contraparte
-no paramétrica cuando los supuestos fallan) a **varias bases de datos**
-distintas, cada una pensada para ilustrar un escenario de comparación
-diferente: dos grupos independientes, dos grupos independientes con
-varianzas desiguales, datos pareados, y comparación de más de dos grupos.
-
-El razonamiento se repite en cada base de datos y sigue siempre la misma
-secuencia:
+hipótesis**; resumidamente, realizamos:
 
 1. Resumen exploratorio de los grupos a comparar.
 2. Verificación del supuesto de **normalidad** (Kolmogorov-Smirnov, Shapiro-Wilk
@@ -25,7 +18,7 @@ secuencia:
    (Wilcoxon/Mann-Whitney).
 5. Tamaño del efecto, cuando aplica.
 
-Además de aplicar cada función de R, en varios puntos **reproducimos el
+Además de aplicar cada función de R, en varios puntos (las tareas) **reproducimos el
 cálculo manualmente** a partir de la teoría (el estadístico, el p-valor y el
 intervalo de confianza) para verificar que coincide exactamente con la salida
 de la función nativa. Esto no es un adorno: es la forma de comprobar que
@@ -479,20 +472,3 @@ df %>%
 Con una confianza del 95% se concluye que hay diferencias estadísticamente
 significativas en la percepción medida por `Q1` entre el pretest y el
 post-test.
-
-## Resumen del capítulo
-
-| Base de datos | Diseño | Supuesto de varianzas | Prueba aplicada |
-|---|---|---|---|
-| Presión arterial | 2 grupos independientes | Iguales (`var.test` no rechaza) | t de Student clásico |
-| Precio por tipo de cuenta | 2 grupos independientes | Distintas (Bartlett/Levene/Fligner rechazan) | t de Welch |
-| Intervención educativa | Pareado | — | t pareado |
-| Peso al nacer / tabaquismo | 2 grupos independientes | No normalidad | Wilcoxon/Mann-Whitney |
-| Tiempo de resolución / 3 escuelas | 3 grupos independientes | Iguales (paso previo a ANOVA) | Bartlett, Levene, Fligner-Killeen |
-| Percepción Q1 (pre/post) | Pareado, no normal | — | Wilcoxon pareado |
-
-El hilo conductor de todo el capítulo es que **la prueba correcta depende de
-los supuestos**, no de la preferencia por un método u otro: primero se
-verifica normalidad y homocedasticidad, y solo después se elige entre la
-prueba paramétrica clásica, su variante robusta (Welch) o su alternativa no
-paramétrica.

@@ -199,7 +199,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.6.2" data-path="parametrica.html"><a href="parametrica.html#supuesto-de-normalidad-4"><i class="fa fa-check"></i><b>2.6.2</b> Supuesto de normalidad</a></li>
 <li class="chapter" data-level="2.6.3" data-path="parametrica.html"><a href="parametrica.html#wilcoxon-pareado-y-tama%C3%B1o-del-efecto"><i class="fa fa-check"></i><b>2.6.3</b> Wilcoxon pareado y tamaño del efecto</a></li>
 </ul></li>
-<li class="chapter" data-level="2.7" data-path="parametrica.html"><a href="parametrica.html#resumen-del-cap%C3%ADtulo"><i class="fa fa-check"></i><b>2.7</b> Resumen del capítulo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
 <li class="divider"></li>
@@ -228,13 +227,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 base de datos (viviendas de California) con el fin de describir una variable
 respuesta numérica y sus relaciones con otras características. En este
 capítulo cambiamos de objetivo: en lugar de explorar, <strong>contrastamos
-hipótesis</strong>. Se aplican pruebas de estadística paramétrica (y su contraparte
-no paramétrica cuando los supuestos fallan) a <strong>varias bases de datos</strong>
-distintas, cada una pensada para ilustrar un escenario de comparación
-diferente: dos grupos independientes, dos grupos independientes con
-varianzas desiguales, datos pareados, y comparación de más de dos grupos.</p>
-<p>El razonamiento se repite en cada base de datos y sigue siempre la misma
-secuencia:</p>
+hipótesis</strong>; resumidamente, realizamos:</p>
 <ol style="list-style-type: decimal">
 <li>Resumen exploratorio de los grupos a comparar.</li>
 <li>Verificación del supuesto de <strong>normalidad</strong> (Kolmogorov-Smirnov, Shapiro-Wilk
@@ -246,7 +239,7 @@ con <code>var.test</code>, Bartlett, Levene o Fligner-Killeen.</li>
 (Wilcoxon/Mann-Whitney).</li>
 <li>Tamaño del efecto, cuando aplica.</li>
 </ol>
-<p>Además de aplicar cada función de R, en varios puntos <strong>reproducimos el
+<p>Además de aplicar cada función de R, en varios puntos (las tareas) <strong>reproducimos el
 cálculo manualmente</strong> a partir de la teoría (el estadístico, el p-valor y el
 intervalo de confianza) para verificar que coincide exactamente con la salida
 de la función nativa. Esto no es un adorno: es la forma de comprobar que
@@ -871,70 +864,8 @@ esta vez con una variable que no cumple normalidad.</p>
 <p>Con una confianza del 95% se concluye que hay diferencias estadísticamente
 significativas en la percepción medida por <code>Q1</code> entre el pretest y el
 post-test.</p>
-</div>
-</div>
-<div id="resumen-del-capítulo" class="section level2 hasAnchor" number="2.7">
-<h2><span class="header-section-number">2.7</span> Resumen del capítulo<a href="parametrica.html#resumen-del-cap%C3%ADtulo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<table>
-<colgroup>
-<col width="25%" />
-<col width="25%" />
-<col width="25%" />
-<col width="25%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Base de datos</th>
-<th>Diseño</th>
-<th>Supuesto de varianzas</th>
-<th>Prueba aplicada</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Presión arterial</td>
-<td>2 grupos independientes</td>
-<td>Iguales (<code>var.test</code> no rechaza)</td>
-<td>t de Student clásico</td>
-</tr>
-<tr class="even">
-<td>Precio por tipo de cuenta</td>
-<td>2 grupos independientes</td>
-<td>Distintas (Bartlett/Levene/Fligner rechazan)</td>
-<td>t de Welch</td>
-</tr>
-<tr class="odd">
-<td>Intervención educativa</td>
-<td>Pareado</td>
-<td>—</td>
-<td>t pareado</td>
-</tr>
-<tr class="even">
-<td>Peso al nacer / tabaquismo</td>
-<td>2 grupos independientes</td>
-<td>No normalidad</td>
-<td>Wilcoxon/Mann-Whitney</td>
-</tr>
-<tr class="odd">
-<td>Tiempo de resolución / 3 escuelas</td>
-<td>3 grupos independientes</td>
-<td>Iguales (paso previo a ANOVA)</td>
-<td>Bartlett, Levene, Fligner-Killeen</td>
-</tr>
-<tr class="even">
-<td>Percepción Q1 (pre/post)</td>
-<td>Pareado, no normal</td>
-<td>—</td>
-<td>Wilcoxon pareado</td>
-</tr>
-</tbody>
-</table>
-<p>El hilo conductor de todo el capítulo es que <strong>la prueba correcta depende de
-los supuestos</strong>, no de la preferencia por un método u otro: primero se
-verifica normalidad y homocedasticidad, y solo después se elige entre la
-prueba paramétrica clásica, su variante robusta (Welch) o su alternativa no
-paramétrica.</p>
 
+</div>
 </div>
 </div>
             </section>

@@ -36,4 +36,3 @@ estadística-no-paramétrica-pareada-percepción-de-los-estudiantes
 análisis-exploratorio-3
 supuesto-de-normalidad-4
 wilcoxon-pareado-y-tamaño-del-efecto
-resumen-del-capítulo
